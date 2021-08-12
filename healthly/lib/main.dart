@@ -15,6 +15,7 @@ void main() async {
   await Hive.initFlutter();
   var box = await Hive.openBox('doctorCreationBox');
   var box2 = await Hive.openBox('isDoctor');
+  var box3 = await Hive.openBox('city');
 
   runApp(ProviderScope(
     child: LiquidApp(materialApp: MaterialApp(home: getRoute())),

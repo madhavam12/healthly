@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:healthly/utils.dart';
 
 class DocIDModel {
   final String name;
@@ -14,7 +13,6 @@ class DocIDModel {
   final String email;
 
   final String cityName;
-  final DateTime lastMessageTime;
 
   final String phoneNumber;
 
@@ -23,7 +21,6 @@ class DocIDModel {
   DocIDModel({
     @required this.name,
     @required this.idUser,
-    @required this.lastMessageTime,
     @required this.speciality,
     @required this.email,
     @required this.cityName,
@@ -35,7 +32,6 @@ class DocIDModel {
       : name = json['name'],
         cityName = json['cityName'],
         idUser = json['idUser'],
-        lastMessageTime = Utils.toDateTime(json['lastMessageTime']),
         speciality = json['speciality'],
         email = json['email'],
         urlAvatar = json['urlAvatar'],
@@ -47,7 +43,6 @@ class DocIDModel {
         'cityName': cityName,
         'urlAvatar': urlAvatar,
         'name': name,
-        'lastMessageTime': Utils.fromDateTimeToJson(lastMessageTime),
         'speciality': speciality,
         'idUser': idUser,
         'dateAndTime': Timestamp.now(),

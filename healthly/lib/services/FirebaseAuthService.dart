@@ -99,6 +99,10 @@ class FirebaseAuthService {
   Future<String> getCityName(Position pos) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(pos.latitude, pos.longitude);
+
+    var box = Hive.box('city');
+
+    box.put('name', placemarks[0].locality);
     return placemarks[0].locality;
   }
 

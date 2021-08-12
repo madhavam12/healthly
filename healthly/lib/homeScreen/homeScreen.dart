@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:healthly/services/FirebaseAuthService.dart';
-import 'package:healthly/chatPages/chats_page.dart';
+import 'chatPage.dart';
 import 'package:flutter/services.dart';
 import 'package:healthly/constant.dart';
 import 'package:healthly/loginScreen/loginPage.dart';
@@ -12,7 +12,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:healthly/profileCreation/docProfileCreation.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:liquid_ui/liquid_ui.dart';
-import 'chatScreen.dart';
+
 import 'package:healthly/Models/userIdModel.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 // QrService _qrService = locator<QrService>();
@@ -415,10 +415,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               margin: EdgeInsets.only(
                                   top: 10, bottom: 10, right: 35, left: 10),
                               child: DoctorCard(
-                                  'Dr. Stephanie',
-                                  'Eye Specialist - Flower Hospitals',
-                                  'assets/images/doctor3.png',
-                                  colors[0]),
+                                'Dr. Stephanie',
+                                'Eye Specialist - Flower Hospitals',
+                                'assets/images/doctor3.png',
+                                colors[0],
+                              ),
                             );
                           }),
                         )
@@ -431,7 +432,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // prefs != null
             //     ? ChatScreen(currentUserId: prefs.getString('id') ?? "")
             //     : Container(),
-            ChatsPage(),
+
             Container(color: Colors.red),
             Container(color: Colors.yellow),
           ],

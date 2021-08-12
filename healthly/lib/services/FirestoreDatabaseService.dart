@@ -18,11 +18,12 @@ class FirestoreDatabaseService {
     @required User user,
   }) async {
     await _firestore.collection("users").doc(user.uid).set({
-      "userName": name,
-      "photoURL": photoURL,
+      "name": name,
+      "idUser": user.uid,
       "cityName": cityName,
       "isDoc": isDoc,
       "phoneNumber": phoneNumber,
+      "urlAvatar": photoURL,
       "email": email,
     }).catchError((e) {
       return e;
