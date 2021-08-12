@@ -1,22 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+import 'package:geocoding/geocoding.dart';
+
 import 'package:healthly/services/FirestoreDatabaseService.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:healthly/Models/userChatModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:healthly/providers/providers.dart' as providers;
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
+import 'package:geolocator/geolocator.dart';
 
 class FirebaseAuthService {
-  SharedPreferences prefs;
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User user;
-  User currentUser;
 
   Future signOut() async {
     await _auth.signOut();
@@ -24,12 +20,16 @@ class FirebaseAuthService {
     if (googleUser.currentUser != null) {
       googleUser.signOut();
     }
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.clear();
+
+    var box = Hive.box('doctorCreationBox');
+    var box2 = Hive.box('isDoctor');
+
+    box.clear();
+    box2.clear();
   }
 
   var signIn;
-  signInWithGoogle(BuildContext context) async {
+  signInWithGoogle({@required bool isDoc}) async {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
@@ -55,48 +55,68 @@ class FirebaseAuthService {
 
         return errorMessage;
       }
-      print('asdfas');
-      return "Unknown error occured. If it persists, try logging in with phone or email instead..";
+
+      return "Unknown error occured. If it persists, try logging in with phone or email instead.";
     }
 
     FirestoreDatabaseService _firestoreService = FirestoreDatabaseService();
 
-    final QuerySnapshot result = await FirebaseFirestore.instance
-        .collection('users')
-        .where('id', isEqualTo: user.user.uid)
-        .get();
+    String city = await determinePosition();
+    if (await _firestoreService.goolesigninEmailExists(uid: user.user.uid) ==
+        true) {
+      await _firestoreService.createAUser(
+          cityName: city,
+          name: user.user.displayName,
+          isDoc: isDoc,
+          photoURL: user.user.photoURL,
+          phoneNumber: user.user.phoneNumber,
+          email: user.user.email,
+          user: user.user);
+    }
 
-    StateController<String> controller = context.read(providers.userType);
+    if (isDoc) {
+      var box = Hive.box('doctorCreationBox');
+      var box2 = Hive.box('isDoctor');
 
-    final List<DocumentSnapshot> documents = result.docs;
-    if (documents.length == 0) {
-      // Update data to server if new user
-      FirebaseFirestore.instance.collection('users').doc(user.user.uid).set({
-        'userName': user.user.displayName,
-        'photoUrl': user.user.photoURL,
-        "userType": controller.state,
-        'id': user.user.uid,
-        'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-        'chattingWith': null
-      });
+      box.put('isFilled', false);
 
-      // Write data to local
-      currentUser = user.user;
-      await prefs?.setString('id', currentUser.uid);
-      await prefs?.setString('userName', currentUser.displayName ?? "");
-      await prefs?.setString('photoUrl', currentUser.photoURL ?? "");
-    } else {
-      DocumentSnapshot documentSnapshot = documents[0];
-      UserChat userChat = UserChat.fromDocument(documentSnapshot);
-      // Write data to local
-      await prefs?.setString('id', userChat.id);
-      await prefs?.setString('userName', userChat.userName);
-      await prefs?.setString('photoUrl', userChat.photoUrl);
-      await prefs?.setString('speciality', userChat.speciality);
+      box2.put("isDoctor", true);
     }
 
     //
     return user.user;
+  }
+
+  Future<String> getCityName(Position pos) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(pos.latitude, pos.longitude);
+    return placemarks[0].locality;
+  }
+
+  Future<String> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    Position pos = await Geolocator.getCurrentPosition();
+    String city = await getCityName(pos);
+    return city;
   }
 
   Future handleSignInEmail({
@@ -107,10 +127,6 @@ class FirebaseAuthService {
     try {
       result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      currentUser = result.user;
-      await prefs?.setString('id', currentUser.uid);
-      await prefs?.setString('userName', currentUser.displayName ?? "");
-      await prefs?.setString('photoUrl', currentUser.photoURL ?? "");
       // saveToHive(cityName: cityName);
     } catch (error) {
       if (error.message != null) {
@@ -124,10 +140,7 @@ class FirebaseAuthService {
   }
 
   Future handleSignUp(
-      {@required BuildContext context,
-      @required String email,
-      @required String name,
-      @required String password}) async {
+      {@required String email, @required String password}) async {
     var result;
 
     try {
@@ -135,40 +148,6 @@ class FirebaseAuthService {
         email: email,
         password: password,
       );
-      StateController controller = context.read(providers.userType);
-      final QuerySnapshot result2 = await FirebaseFirestore.instance
-          .collection('users')
-          .where('id', isEqualTo: result.user.uid)
-          .get();
-      final List<DocumentSnapshot> documents = result2.docs;
-      if (documents.length == 0) {
-        // Update data to server if new user
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(result.user.uid)
-            .set({
-          'userName': name,
-          'photoUrl': result.user.photoURL,
-          "userType": controller.state,
-          'id': result.user.uid,
-          'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-          'chattingWith': null
-        });
-
-        // Write data to local
-        currentUser = result.user;
-        await prefs?.setString('id', currentUser.uid);
-        await prefs?.setString('userName', name);
-        await prefs?.setString('photoUrl', currentUser.photoURL ?? "");
-      } else {
-        DocumentSnapshot documentSnapshot = documents[0];
-        UserChat userChat = UserChat.fromDocument(documentSnapshot);
-        // Write data to local
-        await prefs?.setString('id', userChat.id);
-        await prefs?.setString('userName', userChat.userName);
-        await prefs?.setString('photoUrl', userChat.photoUrl);
-        await prefs?.setString('speciality', userChat.speciality);
-      }
     } catch (error) {
       if (error.message != null) {
         return error.message;

@@ -10,12 +10,18 @@ class FirestoreDatabaseService {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Future createAUser({
     @required String name,
+    @required String cityName,
     @required String phoneNumber,
+    @required bool isDoc,
     @required String email,
+    @required String photoURL,
     @required User user,
   }) async {
     await _firestore.collection("users").doc(user.uid).set({
       "userName": name,
+      "photoURL": photoURL,
+      "cityName": cityName,
+      "isDoc": isDoc,
       "phoneNumber": phoneNumber,
       "email": email,
     }).catchError((e) {
@@ -45,10 +51,12 @@ class FirestoreDatabaseService {
     DocumentSnapshot<Map> doc =
         await _firestore.collection("users").doc(docId).get();
 
-    if (doc.data()['currentPosition'] != null &&
-        doc.data()['phoneNumber'] != null &&
+    if (doc.data()['isDoc'] != null &&
+        doc.data()['userName'] != null &&
+        doc.data()['photoURL'] != null &&
         doc.data()['email'] != null &&
-        doc.data()['userName'] != null) {
+        doc.data()['isDoc'] != null &&
+        doc.data()['phoneNumber'] != null) {
       return true;
     } else {
       return false;

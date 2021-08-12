@@ -7,8 +7,8 @@ class UserIDModel {
 
   final String uid;
 
-  final String consultantFor;
-  final String photoUrl;
+  final String speciality;
+  final String photoURL;
 
   final String email;
 
@@ -21,10 +21,10 @@ class UserIDModel {
   UserIDModel({
     @required this.userName,
     @required this.uid,
-    @required this.consultantFor,
+    @required this.speciality,
     @required this.email,
     @required this.cityName,
-    @required this.photoUrl,
+    @required this.photoURL,
     @required this.phoneNumber,
   });
 
@@ -32,18 +32,18 @@ class UserIDModel {
       : userName = json['userName'],
         cityName = json['cityName'],
         uid = json['uid'],
-        consultantFor = json['consultantFor'],
+        speciality = json['speciality'],
         email = json['email'],
-        photoUrl = json['photoUrl'],
+        photoURL = json['photoURL'],
         phoneNumber = json['phoneNumber'],
         dateAndTime = json['dateAndTime'];
 
   Map<String, dynamic> toJson() => {
         'phoneNumber': phoneNumber,
         'cityName': cityName,
-        'photoUrl': photoUrl,
+        'photoURL': photoURL,
         'userName': userName,
-        'consultantFor': consultantFor,
+        'speciality': speciality,
         'uid': uid,
         'dateAndTime': Timestamp.now(),
         'email': email,

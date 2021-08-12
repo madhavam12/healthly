@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:sample_app/screens/LoginScreen/loginScreen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:healthly/loginScreen/loginPage.dart';
 
 import 'package:healthly/providers/providers.dart' as providers;
 
@@ -10,8 +11,8 @@ Widget submitButton({BuildContext context}) {
       StateController controller = context.read(providers.userType);
       controller.state = "Patient";
 
-      // Navigator.push(
-      //     context!, MaterialPageRoute(builder: (context) => LoginPage()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginView()));
     },
     child: Container(
       width: MediaQuery.of(context).size.width,
