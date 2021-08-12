@@ -59,10 +59,10 @@ class FirestoreDatabaseService {
 
     if (doc.data()['phoneNumber'] != null &&
         doc.data()['cityName'] != null &&
-        doc.data()['photoURL'] != null &&
-        doc.data()['userName'] != null &&
+        doc.data()['urlAvatar'] != null &&
+        doc.data()['name'] != null &&
         doc.data()['isDoc'] != null &&
-        doc.data()['uid'] != null &&
+        doc.data()['idUser'] != null &&
         doc.data()['email'] != null &&
         doc.data()['speciality'] != null) {
       return true;

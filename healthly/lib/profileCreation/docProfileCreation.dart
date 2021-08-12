@@ -275,13 +275,15 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                       }
                       var create = await _firestoreService.createDoctorProfile(
                         userModel: DocIDModel(
-                          speciality: _specialityController.text,
-                          photoURL: imgUpload != null ? imgUpload[0] : "",
+                          speciality: speciality,
+                          urlAvatar: imgUpload != null
+                              ? imgUpload[0]
+                              : FirebaseAuth.instance.currentUser.photoURL,
                           cityName: cityName[1],
-                          userName: _nameController.text,
+                          name: _nameController.text,
                           phoneNumber: _phoneController.text,
                           email: _emailController.text,
-                          uid: FirebaseAuth.instance.currentUser.uid,
+                          idUser: FirebaseAuth.instance.currentUser.uid,
                         ),
                       );
 
@@ -501,7 +503,7 @@ class _SpecialityState extends State<Speciality> {
   }
 }
 
-String speciality = "";
+String speciality = "General Physician";
 openLoadingDialog(BuildContext context, String text) async {
   showDialog(
       context: context,

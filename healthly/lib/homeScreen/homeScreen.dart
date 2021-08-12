@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:healthly/services/FirebaseAuthService.dart';
-
+import 'package:healthly/chatPages/chats_page.dart';
 import 'package:flutter/services.dart';
 import 'package:healthly/constant.dart';
 import 'package:healthly/loginScreen/loginPage.dart';
@@ -428,9 +428,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            prefs != null
-                ? ChatScreen(currentUserId: prefs.getString('id') ?? "")
-                : Container(),
+            // prefs != null
+            //     ? ChatScreen(currentUserId: prefs.getString('id') ?? "")
+            //     : Container(),
+            ChatsPage(),
             Container(color: Colors.red),
             Container(color: Colors.yellow),
           ],

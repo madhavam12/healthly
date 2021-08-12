@@ -1,50 +1,55 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:healthly/utils.dart';
 
 class DocIDModel {
-  final String userName;
+  final String name;
 
-  final String uid;
+  final String idUser;
 
   final String speciality;
-  final String photoURL;
+  final String urlAvatar;
 
   final String email;
 
   final String cityName;
+  final DateTime lastMessageTime;
 
   final String phoneNumber;
 
   Timestamp dateAndTime;
 
   DocIDModel({
-    @required this.userName,
-    @required this.uid,
+    @required this.name,
+    @required this.idUser,
+    @required this.lastMessageTime,
     @required this.speciality,
     @required this.email,
     @required this.cityName,
-    @required this.photoURL,
+    @required this.urlAvatar,
     @required this.phoneNumber,
   });
 
   DocIDModel.fromJson(Map<String, dynamic> json)
-      : userName = json['userName'],
+      : name = json['name'],
         cityName = json['cityName'],
-        uid = json['uid'],
+        idUser = json['idUser'],
+        lastMessageTime = Utils.toDateTime(json['lastMessageTime']),
         speciality = json['speciality'],
         email = json['email'],
-        photoURL = json['photoURL'],
+        urlAvatar = json['urlAvatar'],
         phoneNumber = json['phoneNumber'],
         dateAndTime = json['dateAndTime'];
 
   Map<String, dynamic> toJson() => {
         'phoneNumber': phoneNumber,
         'cityName': cityName,
-        'photoURL': photoURL,
-        'userName': userName,
+        'urlAvatar': urlAvatar,
+        'name': name,
+        'lastMessageTime': Utils.fromDateTimeToJson(lastMessageTime),
         'speciality': speciality,
-        'uid': uid,
+        'idUser': idUser,
         'dateAndTime': Timestamp.now(),
         'email': email,
       };
