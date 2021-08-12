@@ -86,8 +86,12 @@ class FirebaseAuthService {
       box.put('isFilled', false);
 
       box2.put("isDoctor", true);
+      return user.user;
     }
 
+    var box2 = Hive.box('isDoctor');
+
+    box2.put("isDoctor", false);
     //
     return user.user;
   }

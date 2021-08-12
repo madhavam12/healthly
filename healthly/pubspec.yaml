@@ -40,6 +40,7 @@ dependencies:
   geocoding: ^2.0.0
   hive_flutter: ^1.1.0
   liquid_ui: ^1.0.0+9
+  dropdown_search: ^0.5.0 
   shrink_sidemenu: ^2.0.0+1-null-safety
   connection_verify: ^1.0.4
   geolocator: ^7.4.0

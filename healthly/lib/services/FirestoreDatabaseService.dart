@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:healthly/Models/userIdModel.dart';
-
+import 'package:hive/hive.dart';
 import 'dart:io';
 import 'dart:convert';
 
@@ -32,8 +32,8 @@ class FirestoreDatabaseService {
     return true;
   }
 
-  Future createUserProfile({
-    @required UserIDModel userModel,
+  Future createDoctorProfile({
+    @required DocIDModel userModel,
   }) async {
     await _firestore
         .collection("users")
@@ -42,8 +42,14 @@ class FirestoreDatabaseService {
         .catchError((e) {
       return e;
     });
-    // saveUserDataToHive(data: userModel);
-    // saveToHive(state: "0");
+
+    var box = Hive.box('doctorCreationBox');
+    var box2 = Hive.box('isDoctor');
+
+    box.put('isFilled', true);
+
+    box2.put("isDoctor", true);
+
     return true;
   }
 
@@ -51,12 +57,14 @@ class FirestoreDatabaseService {
     DocumentSnapshot<Map> doc =
         await _firestore.collection("users").doc(docId).get();
 
-    if (doc.data()['isDoc'] != null &&
-        doc.data()['userName'] != null &&
+    if (doc.data()['phoneNumber'] != null &&
+        doc.data()['cityName'] != null &&
         doc.data()['photoURL'] != null &&
-        doc.data()['email'] != null &&
+        doc.data()['userName'] != null &&
         doc.data()['isDoc'] != null &&
-        doc.data()['phoneNumber'] != null) {
+        doc.data()['uid'] != null &&
+        doc.data()['email'] != null &&
+        doc.data()['speciality'] != null) {
       return true;
     } else {
       return false;

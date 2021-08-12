@@ -5,11 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+
+import 'package:healthly/profileCreation/docProfileCreation.dart';
 import 'package:healthly/homeScreen/homeScreen.dart';
 import 'package:healthly/services/FirebaseAuthService.dart';
 import 'package:connection_verify/connection_verify.dart';
 import 'package:healthly/services/FirestoreDatabaseService.dart';
 import 'widgets/local_widgets.dart';
+
+import 'package:hive/hive.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -1097,26 +1101,32 @@ class _LoginViewState extends State<LoginView> {
 
                         FirestoreDatabaseService _firestoreService =
                             FirestoreDatabaseService();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                        );
-                        if (await _firestoreService.hasFilledData(
-                            docId: FirebaseAuth.instance.currentUser.uid)) {
-                          // Navigator.of(context, rootNavigator: true).pop();
+
+                        if (controller.state == "Doctor") {
+                          if (await _firestoreService.hasFilledData(
+                              docId: FirebaseAuth.instance.currentUser.uid)) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()));
+                          } else {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProfileCreationView()));
+                          }
+                        } else {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HomeScreen()));
-                        } else {
-                          // Navigator.of(context, rootNavigator: true).pop();
-                          // NavigationService _navigationService =
-                          //     locator<NavigationService>();
-                          // _navigationService
-                          //     .replaceWith(Routes.profileCreationView);
-
                         }
                       } catch (e) {
                         print(e);

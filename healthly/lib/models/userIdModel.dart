@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserIDModel {
+class DocIDModel {
   final String userName;
 
   final String uid;
@@ -18,7 +18,7 @@ class UserIDModel {
 
   Timestamp dateAndTime;
 
-  UserIDModel({
+  DocIDModel({
     @required this.userName,
     @required this.uid,
     @required this.speciality,
@@ -28,7 +28,7 @@ class UserIDModel {
     @required this.phoneNumber,
   });
 
-  UserIDModel.fromJson(Map<String, dynamic> json)
+  DocIDModel.fromJson(Map<String, dynamic> json)
       : userName = json['userName'],
         cityName = json['cityName'],
         uid = json['uid'],

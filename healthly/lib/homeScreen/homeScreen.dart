@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:healthly/constant.dart';
 import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+
+import 'package:healthly/profileCreation/docProfileCreation.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:liquid_ui/liquid_ui.dart';
 import 'chatScreen.dart';
@@ -236,6 +238,12 @@ class _HomeScreenState extends State<HomeScreen> {
       type: SideMenuType.slide,
       menu: buildMenu(context),
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileCreationView()));
+          },
+        ),
         bottomNavigationBar: Container(
           color: Color(0xFFFFFFFF),
           child: DotNavigationBar(
