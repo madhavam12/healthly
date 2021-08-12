@@ -67,6 +67,17 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
+
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-VariableFont_wght.ttf
+
+
+    - family: QuickSand
+      fonts:
+        - asset: assets/fonts/Quicksand-VariableFont_wght.ttf
+  
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -89,9 +100,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  #   - family: Schyler
+  #   - family: Quicksand
   #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  #       asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
