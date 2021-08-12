@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:healthly/Models/user.dart' as usrModel;
+
 import 'package:healthly/profileCreation/docProfileCreation.dart';
 import 'package:healthly/homeScreen/homeScreen.dart';
 import 'package:healthly/services/FirebaseAuthService.dart';

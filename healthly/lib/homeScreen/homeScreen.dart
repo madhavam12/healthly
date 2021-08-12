@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:healthly/services/FirebaseAuthService.dart';
-import 'chatPage.dart';
+import 'AllDoctorsPage.dart';
 import 'package:flutter/services.dart';
 import 'package:healthly/constant.dart';
 import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-
+import 'package:healthly/covidDS/screens/bottom_nav_screen.dart';
 import 'package:healthly/profileCreation/docProfileCreation.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:liquid_ui/liquid_ui.dart';
-
 import 'package:healthly/Models/userIdModel.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 // QrService _qrService = locator<QrService>();
@@ -387,42 +386,79 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         // ),
-                        Align(
-                          alignment: Alignment.centerLeft,
+                        // Align(
+                        //   alignment: Alignment.centerLeft,
+                        //   child: Container(
+                        //     margin: EdgeInsets.all(
+                        //       10.0,
+                        //     ),
+                        //     child: Text(
+                        //       "Doctors:",
+                        //       style: TextStyle(
+                        //         letterSpacing: 1.5,
+                        //         color: Colors.black,
+                        //         fontWeight: FontWeight.bold,
+                        //         fontFamily: "QuickSand",
+                        //         fontSize: 25.0,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BottomNavScreen()));
+                          },
                           child: Container(
-                            margin: EdgeInsets.all(
-                              10.0,
+                            height: 200,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/covid.png'),
+                              ),
+                              color: Colors.blue,
                             ),
-                            child: Text(
-                              "Doctors:",
-                              style: TextStyle(
-                                letterSpacing: 1.5,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "QuickSand",
-                                fontSize: 25.0,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
+                                  gradient: new LinearGradient(
+                                      colors: [
+                                        Colors.black.withOpacity(0.4),
+                                        Colors.black.withOpacity(0.4),
+                                      ],
+                                      begin: const FractionalOffset(0.0, 0.0),
+                                      end: const FractionalOffset(1.0, 0.0),
+                                      stops: [0.0, 1.0],
+                                      tileMode: TileMode.clamp)),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 120),
+                                    Text(
+                                      "Covid-19 Information",
+                                      style: TextStyle(
+                                        letterSpacing: 1.5,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "QuickSand",
+                                        fontSize: 25.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-
-                        Container(
-                          height: 700,
-                          child:
-                              ListView.builder(itemBuilder: (context, index) {
-                            colors.shuffle();
-                            return Container(
-                              margin: EdgeInsets.only(
-                                  top: 10, bottom: 10, right: 35, left: 10),
-                              child: DoctorCard(
-                                'Dr. Stephanie',
-                                'Eye Specialist - Flower Hospitals',
-                                'assets/images/doctor3.png',
-                                colors[0],
-                              ),
-                            );
-                          }),
-                        )
                       ],
                     ),
                   ),
@@ -432,7 +468,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // prefs != null
             //     ? ChatScreen(currentUserId: prefs.getString('id') ?? "")
             //     : Container(),
-
+            AllDoctorsPage(),
             Container(color: Colors.red),
             Container(color: Colors.yellow),
           ],
