@@ -1,5 +1,3 @@
-//import meal_model.dart
-
 import 'meal_model.dart';
 
 class MealPlan {
@@ -12,6 +10,8 @@ class MealPlan {
     List<Meal> meals = [];
     map['meals'].forEach((mealMap) => meals.add(Meal.fromMap(mealMap)));
     //MealPlan object with information we want
+
+    print('meals is $meals');
     return MealPlan(
       meals: meals,
       calories: map['nutrients']['calories'],
