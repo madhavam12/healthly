@@ -9,9 +9,10 @@ import 'package:healthly/Models/userIdModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:dio/browser_imp.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 
+// import 'package:dropdown_search/dropdown_search.dart';
+
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:healthly/homeScreen/homeScreen.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -207,13 +208,6 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                     labelText: "Phone Number",
                     hintText: "Write your phone number"),
                 Speciality(),
-                // GetTextField(
-                //     controller: _specialityController,
-                //     focusNode: _specialityFocus,
-                //     iconData: LineAwesomeIcons.briefcase,
-                //     labelText: "Speciality",
-                //     hintText: "eg, General Physician, Eye Specialist, Dentist"),
-
                 GetTextField(
                     controller: _emailController,
                     focusNode: _emailFocus,
@@ -224,7 +218,7 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                   onTap: () async {
                     if (_nameController.text == "" ||
                         _phoneController.text == "" ||
-                        _specialityController.text == "" ||
+                        speciality == "" ||
                         _emailController.text == "") {
                       showInSnackBar(
                           context: context,
@@ -349,61 +343,6 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
   }
 }
 
-// class GetTextField extends StatelessWidget {
-//   final FocusNode focusNode;
-
-//   final TextEditingController controller;
-//   final String hintText;
-//   final String labelText;
-//   final IconData iconData;
-//   const GetTextField(
-//       {Key key,
-//       @required this.iconData,
-//       @required this.controller,
-//       @required this.hintText,
-//       @required this.labelText,
-//       @required this.focusNode})
-//       : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: EdgeInsets.only(top: 15.0, left: 20, right: 20),
-//       child: TextField(
-//         focusNode: focusNode,
-//         controller: controller,
-//         textInputAction: TextInputAction.next,
-//         keyboardType: TextInputType.name,
-//         onSubmitted: (String name) {
-//           // _titleFocus.unfocus();
-//           // FocusScope.of(context).requestFocus(_descFocus);
-//         },
-//         style: TextStyle(
-//             fontSize: 17.5, fontWeight: FontWeight.normal, color: Colors.white),
-//         decoration: InputDecoration(
-//           labelStyle: TextStyle(fontSize: 18, color: Colors.white),
-//           hintStyle: TextStyle(
-//             fontSize: 10,
-//             color: Colors.white,
-//           ),
-//           prefixIcon: Icon(
-//             iconData,
-//             color: Colors.white,
-//           ),
-//           filled: true,
-//           labelText: labelText,
-//           hintText: hintText,
-//           fillColor: Color(0xFF1a2228),
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//             borderSide: BorderSide.none,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class GetTextField extends StatelessWidget {
   final FocusNode focusNode;
 
@@ -441,7 +380,9 @@ class GetTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 15.0, left: 20, right: 20),
+      margin: EdgeInsets.only(
+        top: 15.0,
+      ),
       child: TextField(
         focusNode: focusNode,
         controller: controller,
@@ -529,18 +470,38 @@ class _SpecialityState extends State<Speciality> {
   @override
   Widget build(BuildContext context) {
     return DropdownSearch(
-      showSelectedItem: true,
-      compareFn: (i, s) => i.isEqual(s),
-      label: "Person",
-      onChanged: (data) {
-        print(data);
+      dropdownSearchDecoration: InputDecoration(
+        filled: true,
+        // contentPadding: EdgeInsets.all(7.0),
+        fillColor: Colors.white,
+        // border: OutlineInputBorder(
+        //   borderSide:
+        //       BorderSide(color: Colors.black, width: 5.0),
+        // ),
+
+        contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
+        border: OutlineInputBorder(),
+        labelStyle: TextStyle(color: Colors.black),
+      ),
+      items: [
+        "General Physician",
+        "Eye Specialist",
+        "Dentist",
+        "Heart Specialist",
+      ],
+      label: "Speciality",
+      onChanged: (sp) {
+        speciality = sp;
       },
-      dropdownBuilder: _customDropDownExample,
-      popupItemBuilder: _customPopupItemBuilderExample2,
+      hint: "Speciality",
+      selectedItem: "General Physician",
+      validator: (String item) {},
+      mode: Mode.BOTTOM_SHEET,
     );
   }
 }
 
+String speciality = "";
 openLoadingDialog(BuildContext context, String text) async {
   showDialog(
       context: context,

@@ -22,6 +22,7 @@ void main() async {
 }
 
 Widget getRoute() {
+  print('here ftyj1');
   var box = Hive.box('doctorCreationBox');
   var box2 = Hive.box('isDoctor');
 
@@ -29,11 +30,19 @@ Widget getRoute() {
   if (FirebaseAuth.instance.currentUser == null) {
     return WelcomePage();
   }
+
   if (box.get("isFilled") == false && box2.get("isDoctor") == true) {
+    print('here 1');
     return ProfileCreationView();
   }
 
   if (box2.get("isDoctor") == false) {
+    print('here 2');
+    return HomeScreen();
+  }
+
+  if (box.get("isFilled") == true && box2.get("isDoctor") == true) {
+    print('here 1');
     return HomeScreen();
   }
 }
