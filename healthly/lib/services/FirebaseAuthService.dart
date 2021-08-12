@@ -61,11 +61,16 @@ class FirebaseAuthService {
 
     FirestoreDatabaseService _firestoreService = FirestoreDatabaseService();
 
-    String city = await determinePosition();
+    List city = await determinePosition();
+
+    if (city[0] = false) {
+      return city[1];
+    }
+
     if (await _firestoreService.goolesigninEmailExists(uid: user.user.uid) ==
         true) {
       await _firestoreService.createAUser(
-          cityName: city,
+          cityName: city[1],
           name: user.user.displayName,
           isDoc: isDoc,
           photoURL: user.user.photoURL,
@@ -93,30 +98,35 @@ class FirebaseAuthService {
     return placemarks[0].locality;
   }
 
-  Future<String> determinePosition() async {
+  Future<List> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      return [false, "Location services are disabled."];
     }
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        return [false, 'Location permissions are denied'];
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      return [
+        false,
+        'Location permissions are permanently denied, we cannot request permissions.'
+      ];
     }
     Position pos = await Geolocator.getCurrentPosition();
     String city = await getCityName(pos);
-    return city;
+    return [
+      true,
+      city,
+    ];
   }
 
   Future handleSignInEmail({

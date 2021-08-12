@@ -1086,9 +1086,6 @@ class _LoginViewState extends State<LoginView> {
                       try {
                         var authService = FirebaseAuthService();
 
-                        authService.determinePosition();
-
-                        return 0;
                         // String cityName = await getCityName();
                         var check = await authService.signInWithGoogle(
                             isDoc: controller.state == "Doctor");
