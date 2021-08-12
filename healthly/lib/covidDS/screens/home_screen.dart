@@ -155,8 +155,8 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
               physics: ClampingScrollPhysics(),
               slivers: <Widget>[
                 _buildHeader(screenHeight),
-                _buildPreventionTips(screenHeight),
                 _buildYourOwnTest(screenHeight),
+                _buildPreventionTips(screenHeight),
               ],
             ),
     );
@@ -171,8 +171,8 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
 
           color: Colors.blueAccent,
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(40.0),
-            bottomRight: Radius.circular(40.0),
+            bottomLeft: Radius.circular(15.0),
+            bottomRight: Radius.circular(15.0),
           ),
         ),
         child: Column(
@@ -239,7 +239,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       },
                       color: Colors.orange,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
                       icon: const Icon(
                         Icons.phone,
@@ -263,7 +263,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       },
                       color: Colors.green,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
                       icon: const Icon(
                         Icons.chat_bubble,

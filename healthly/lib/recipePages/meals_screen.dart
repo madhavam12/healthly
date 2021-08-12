@@ -16,7 +16,7 @@ class MealsScreen extends StatefulWidget {
 class _MealsScreenState extends State<MealsScreen> {
   _buildTotalNutrientsCard() {
     return Container(
-      height: 140,
+      height: 200,
       margin: EdgeInsets.all(20),
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
@@ -37,13 +37,13 @@ class _MealsScreenState extends State<MealsScreen> {
             ),
           ),
           SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
             children: <Widget>[
               Text(
                 'Calories: ${widget.mealPlan.calories.toString()} cal',
                 style: TextStyle(
                   fontSize: 20,
+                  fontFamily: "QuickSand",
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -51,6 +51,7 @@ class _MealsScreenState extends State<MealsScreen> {
                 'Protein: ${widget.mealPlan.protein.toString()} g',
                 style: TextStyle(
                   fontSize: 20,
+                  fontFamily: "QuickSand",
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -64,6 +65,7 @@ class _MealsScreenState extends State<MealsScreen> {
                 'Fat: ${widget.mealPlan.fat.toString()} g',
                 style: TextStyle(
                   fontSize: 20,
+                  fontFamily: "QuickSand",
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -71,6 +73,7 @@ class _MealsScreenState extends State<MealsScreen> {
                 'Carb: ${widget.mealPlan.carbs.toString()} cal',
                 style: TextStyle(
                   fontSize: 20,
+                  fontFamily: "QuickSand",
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -121,15 +124,17 @@ class _MealsScreenState extends State<MealsScreen> {
           child: Column(
             children: <Widget>[
               Text(
-                mealType,
+                _mealType2(index),
                 style: TextStyle(
                     fontSize: 30,
+                    fontFamily: "QuickSand",
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.5),
               ),
               Text(
                 meal.title,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                maxLines: 5,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                 overflow: TextOverflow.ellipsis,
               )
             ],
@@ -149,6 +154,19 @@ class _MealsScreenState extends State<MealsScreen> {
         return 'Dinner';
       default:
         return 'Breakfast';
+    }
+  }
+
+  _mealType2(int index) {
+    switch (index) {
+      case 0:
+        return 'Breakfast 🍎';
+      case 1:
+        return 'Lunch 🍞';
+      case 2:
+        return 'Dinner 🥘';
+      default:
+        return 'Breakfast 🍎';
     }
   }
 

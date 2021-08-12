@@ -5,7 +5,6 @@ class Meal {
   Meal({this.id, this.title, this.imgURL});
 
   factory Meal.fromMap(Map<String, dynamic> map) {
-    //Meal object
     return Meal(
       id: map['id'],
       title: map['title'],

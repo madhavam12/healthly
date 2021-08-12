@@ -361,7 +361,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   10.0,
                                 ),
                                 child: Text(
-                                  "Catagories: ",
+                                  "Find Doctors: ",
                                   style: TextStyle(
                                     letterSpacing: 1.5,
                                     color: Colors.black,
@@ -414,7 +414,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     builder: (context) => CovidHomeScreen()));
                           },
                           child: Container(
-                            height: 200,
+                            height: 150,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               boxShadow: [
@@ -431,66 +431,69 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               color: Colors.blue,
                             ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(15),
-                                  ),
-                                  gradient: new LinearGradient(
-                                      colors: [
-                                        Colors.black.withOpacity(0.4),
-                                        Colors.black.withOpacity(0.4),
+                            alignment: Alignment.center,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(15),
+                                    ),
+                                    gradient: new LinearGradient(
+                                        colors: [
+                                          Colors.black.withOpacity(0.4),
+                                          Colors.black.withOpacity(0.8),
+                                        ],
+                                        begin: const FractionalOffset(0.0, 0.0),
+                                        end: const FractionalOffset(1.0, 0.0),
+                                        stops: [0.1, 1.0],
+                                        tileMode: TileMode.clamp)),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(height: 50),
+                                        Text(
+                                          "Covid-19 Information",
+                                          style: TextStyle(
+                                            letterSpacing: 1.5,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: "QuickSand",
+                                            fontSize: 25.0,
+                                          ),
+                                        ),
+                                        SizedBox(height: 10),
+                                        FlatButton.icon(
+                                          onPressed: () async {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CovidHomeScreen()));
+                                          },
+                                          color: Colors.blueAccent,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
+                                          icon: const Icon(
+                                            Icons.dashboard,
+                                            color: Colors.white,
+                                          ),
+                                          label: Text(
+                                            'View',
+                                            style: Styles.buttonTextStyle
+                                                .copyWith(
+                                                    fontFamily: "QuickSand"),
+                                          ),
+                                          textColor: Colors.white,
+                                        ),
+                                        SizedBox(height: 10),
                                       ],
-                                      begin: const FractionalOffset(0.0, 0.0),
-                                      end: const FractionalOffset(1.0, 0.0),
-                                      stops: [0.0, 1.0],
-                                      tileMode: TileMode.clamp)),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: 100),
-                                    Text(
-                                      "Covid-19 Information",
-                                      style: TextStyle(
-                                        letterSpacing: 1.5,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "QuickSand",
-                                        fontSize: 25.0,
-                                      ),
                                     ),
-                                    SizedBox(height: 10),
-                                    FlatButton.icon(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0,
-                                        horizontal: 20.0,
-                                      ),
-                                      onPressed: () async {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CovidHomeScreen()));
-                                      },
-                                      color: Colors.orange,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0),
-                                      ),
-                                      icon: const Icon(
-                                        Icons.dashboard,
-                                        color: Colors.white,
-                                      ),
-                                      label: Text(
-                                        'View',
-                                        style: Styles.buttonTextStyle
-                                            .copyWith(fontFamily: "QuickSand"),
-                                      ),
-                                      textColor: Colors.white,
-                                    ),
-                                    SizedBox(height: 10),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -521,35 +524,35 @@ class _HomeScreenState extends State<HomeScreen> {
                               // image: DecorationImage(
                               //   image: AssetImage('assets/images/covid.png'),
                               // ),
-                              color: Colors.blue,
+                              color: Colors.orange.withOpacity(0.89),
                             ),
                             child: Container(
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(15),
-                                  ),
-                                  gradient: new LinearGradient(
-                                      colors: [
-                                        Colors.black.withOpacity(0.4),
-                                        Colors.black.withOpacity(0.4),
-                                      ],
-                                      begin: const FractionalOffset(0.0, 0.0),
-                                      end: const FractionalOffset(1.0, 0.0),
-                                      stops: [0.0, 1.0],
-                                      tileMode: TileMode.clamp)),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                              ),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Container(
                                   child: Center(
                                     child: Row(
                                       children: [
-                                        Container(
-                                          height: 50,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/doctor.png"),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Container(
+                                            height: 100,
+                                            margin: EdgeInsets.only(
+                                                bottom: 60,
+                                                top: 1,
+                                                right: 5,
+                                                left: 5),
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                    "assets/images/food.png"),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -561,7 +564,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                "Healthy Recipe Finder",
+                                                "Healthy Receipe Finder",
                                                 style: TextStyle(
                                                   letterSpacing: 1.5,
                                                   color: Colors.white,
@@ -571,12 +574,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                               ),
                                               Text(
-                                                "Enter the calories and the diet (vegan, Primal, Gluten Free,etc) and get instant healthly recipi for dishes.",
+                                                "Enter the calories and your diet (Vegan, Gluten Free,etc) and get instant healthly receipes for dishes.",
                                                 maxLines: 4,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                   color: Colors.white
-                                                      .withOpacity(0.7),
+                                                      .withOpacity(0.9),
                                                   fontWeight: FontWeight.bold,
                                                   fontFamily: "QuickSand",
                                                   fontSize: 11.0,
@@ -591,20 +594,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           builder: (context) =>
                                                               SearchScreen()));
                                                 },
-                                                color: Colors.orange,
+                                                color: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           30.0),
                                                 ),
                                                 icon: const Icon(
-                                                  Icons.dashboard,
-                                                  color: Colors.white,
+                                                  Icons.search,
+                                                  color: Colors.black,
                                                 ),
                                                 label: Text(
                                                   'Find Now!',
                                                   style: Styles.buttonTextStyle
                                                       .copyWith(
+                                                          color: Colors.black,
                                                           fontSize: 15,
                                                           fontFamily:
                                                               "QuickSand"),

@@ -10,15 +10,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  /*
-  Our state has three parameters.
-  diets - list of diet that the spoonacular api let's us filter by,
-  targetCalories - desired number of calories we want our mealplan to reach
-  diet - our selected diet
-  */
-
   List<String> _diets = [
-    //List of diets that lets spoonacular filter
     'None',
     'Gluten Free',
     'Ketogenic',
@@ -35,10 +27,6 @@ class _SearchScreenState extends State<SearchScreen> {
   String _diet = 'None';
 
   @override
-
-  //This method generates a MealPlan by parsing our parameters into the
-  //ApiService.instance.generateMealPlan.
-  //It then pushes the Meal Screen onto the stack with Navigator.push
   void _searchMealPlan() async {
     MealPlan mealPlan = await ApiService.instance.generateMealPlan(
       targetCalories: _targetCalories.toInt(),
@@ -52,22 +40,15 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget build(BuildContext context) {
-    /*
-    Our build method returns Scaffold Container, which has a decoration
-    image using a Network Image. The image loads and is the background of 
-    the page
-    */
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-                'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=353&q=80'),
+                'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80'),
             fit: BoxFit.cover,
           ),
         ),
-
-        //Center widget and a container as a child, and a column widget
         child: Center(
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 30),
@@ -80,17 +61,17 @@ class _SearchScreenState extends State<SearchScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                //Text widget for our app's title
                 Text(
-                  'My Daily Meal Planner',
+                  "Plan your Meal",
                   style: TextStyle(
-                      fontSize: 32,
+                      fontSize: 30,
+                      fontFamily: "QuickSand",
                       fontWeight: FontWeight.bold,
                       letterSpacing: 2),
                 ),
                 //space
                 SizedBox(height: 20),
-                //A RichText to style the target calories
+
                 RichText(
                   text: TextSpan(
                       style: Theme.of(context)
@@ -108,7 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             style: TextStyle(fontWeight: FontWeight.w600)),
                       ]),
                 ),
-                //Orange slider that sets our target calories
+
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     thumbColor: Theme.of(context).primaryColor,
@@ -124,7 +105,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     }),
                   ),
                 ),
-                //Simple drop down to select the type of diet
+
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: DropdownButtonFormField(
@@ -149,9 +130,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     value: _diet,
                   ),
                 ),
-                //Space
+
                 SizedBox(height: 30),
-                //FlatButton where onPressed() triggers a function called _searchMealPlan
+
                 FlatButton(
                   padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
                   color: Theme.of(context).primaryColor,
@@ -161,12 +142,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Text(
                     'Search',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 22,
+                      fontFamily: "QuickSand",
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  //_searchMealPlan function is above the build method
                   onPressed: _searchMealPlan,
                 ),
               ],
