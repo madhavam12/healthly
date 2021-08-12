@@ -14,20 +14,20 @@ class StatsGrid extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Flexible(
-            child: Row(
+            child: Wrap(
               children: <Widget>[
                 _buildStatCard(
                     'Total Cases', '${data.totalCases}', Colors.orange),
-                _buildStatCard('Deaths', '105 K', Colors.red),
+                _buildStatCard('Deaths', '${data.totalCases}', Colors.red),
               ],
             ),
           ),
           Flexible(
-            child: Row(
+            child: Wrap(
               children: <Widget>[
-                _buildStatCard('Recovered', '391 K', Colors.green),
-                _buildStatCard('Active', '1.31 M', Colors.lightBlue),
-                _buildStatCard('Critical', 'N/A', Colors.purple),
+                _buildStatCard('Recovered', '${data.recovered}', Colors.green),
+                _buildStatCard('Active', '${data.active}', Colors.lightBlue),
+                _buildStatCard('Critical', '${data.critical}', Colors.purple),
               ],
             ),
           ),
@@ -36,37 +36,35 @@ class StatsGrid extends StatelessWidget {
     );
   }
 
-  Expanded _buildStatCard(String title, String count, MaterialColor color) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.all(8.0),
-        padding: const EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15.0,
-                fontWeight: FontWeight.w600,
-              ),
+  Container _buildStatCard(String title, String count, MaterialColor color) {
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 15.0,
+              fontWeight: FontWeight.w600,
             ),
-            Text(
-              count,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
+          ),
+          Text(
+            count,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

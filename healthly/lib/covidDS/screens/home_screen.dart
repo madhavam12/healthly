@@ -5,6 +5,9 @@ import 'package:healthly/covidDS/data/data.dart';
 import 'package:healthly/covidDS/widgets/widgets.dart';
 import 'screens.dart';
 import 'package:healthly/services/covid19API.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:healthly/providers/providers.dart' as providers;
 
 class CovidHomeScreen extends StatefulWidget {
   @override
@@ -12,17 +15,17 @@ class CovidHomeScreen extends StatefulWidget {
 }
 
 class _CovidHomeScreenState extends State<CovidHomeScreen> {
-  String _country = 'IN';
+  String _country = 'India';
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           CovidAPI api = CovidAPI();
-
-          api.dataForCountry(country: "India");
+          List gg = await api.dataForlast30Days(country: "India");
+          print(gg);
         },
       ),
       appBar: CustomAppBar(),
@@ -42,7 +45,9 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
       child: Container(
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: Palette.primaryColor,
+          // color: Palette.primaryColor,
+
+          color: Colors.blueAccent,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(40.0),
             bottomRight: Radius.circular(40.0),
@@ -63,9 +68,14 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                   ),
                 ),
                 CountryDropdown(
-                  countries: ['CN', 'FR', 'IN', 'IT', 'UK', 'USA'],
+                  countries: ['China', 'France', 'India', 'Italy', 'UK', 'USA'],
                   country: _country,
-                  onChanged: (val) => setState(() => _country = val),
+                  onChanged: (val) => setState(() {
+                    _country = val;
+                    StateController controller =
+                        context.read(providers.userType);
+                    controller.state = val;
+                  }),
                 ),
               ],
             ),
@@ -100,7 +110,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                         horizontal: 20.0,
                       ),
                       onPressed: () {},
-                      color: Colors.red,
+                      color: Colors.orange,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -120,7 +130,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                         horizontal: 20.0,
                       ),
                       onPressed: () {},
-                      color: Colors.blue,
+                      color: Colors.green,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -167,13 +177,15 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                           Image.asset(
                             e.keys.first,
                             height: screenHeight * 0.12,
+                            fit: BoxFit.cover,
                           ),
                           SizedBox(height: screenHeight * 0.015),
                           Text(
                             e.values.first,
                             style: const TextStyle(
                               fontSize: 16.0,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: "QuickSand",
                             ),
                             textAlign: TextAlign.center,
                           )
@@ -193,7 +205,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
         onTap: () async {
           CovidAPI api = CovidAPI();
 
-          CovidData data = await api.dataForCountry(country: "India");
+          CovidData data = await api.dataForCountry(country: _country);
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => StatsScreen(data: data)));
         },
@@ -205,6 +217,12 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
           padding: const EdgeInsets.all(10.0),
           height: screenHeight * 0.15,
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.6),
+                blurRadius: 15.0,
+              ),
+            ],
             gradient: LinearGradient(
               colors: [Color(0xFFAD9FE4), Palette.primaryColor],
             ),
@@ -229,14 +247,35 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.01),
-                    Text(
-                      'Tap here to view the latest statistics',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
+                    // Text(
+                    //   'Tap here to view the latest statistics',
+                    //   maxLines: 2,
+                    //   overflow: TextOverflow.ellipsis,
+                    //   style: const TextStyle(
+                    //     color: Colors.white,
+                    //     fontSize: 16.0,
+                    //   ),
+                    // ),
+
+                    FlatButton.icon(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 20.0,
                       ),
+                      onPressed: () {},
+                      color: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      icon: const Icon(
+                        Icons.bar_chart,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'View Stats',
+                        style: Styles.buttonTextStyle,
+                      ),
+                      textColor: Colors.white,
                     ),
                   ],
                 ),

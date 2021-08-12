@@ -6,6 +6,12 @@ import 'package:healthly/covidDS/config/styles.dart';
 import 'package:healthly/covidDS/widgets/widgets.dart';
 import 'package:healthly/services/covid19API.dart';
 
+import 'package:riverpod/riverpod.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:healthly/providers/providers.dart' as providers;
+
 class StatsScreen extends StatefulWidget {
   final CovidData data;
 
@@ -19,7 +25,7 @@ class _StatsScreenState extends State<StatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.primaryColor,
+      backgroundColor: Colors.blueAccent,
       appBar: CustomAppBar(),
       body: CustomScrollView(
         physics: ClampingScrollPhysics(),
@@ -33,12 +39,12 @@ class _StatsScreenState extends State<StatsScreen> {
               child: StatsGrid(data: widget.data),
             ),
           ),
-          // SliverPadding(
-          //   padding: const EdgeInsets.only(top: 20.0),
-          //   sliver: SliverToBoxAdapter(
-          //     child: CovidBarChart(covidCases: covidUSADailyNewCases),
-          //   ),
-          // ),
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 20.0),
+            sliver: SliverToBoxAdapter(
+              child: CovidBarChart(),
+            ),
+          ),
         ],
       ),
     );
@@ -61,6 +67,8 @@ class _StatsScreenState extends State<StatsScreen> {
   }
 
   SliverToBoxAdapter _buildRegionTabBar() {
+    StateController controller = context.read(providers.userType);
+
     return SliverToBoxAdapter(
       child: DefaultTabController(
         length: 2,
@@ -81,7 +89,7 @@ class _StatsScreenState extends State<StatsScreen> {
             labelColor: Colors.black,
             unselectedLabelColor: Colors.white,
             tabs: <Widget>[
-              Text('My Country'),
+              Text(controller.state),
               Text('Global'),
             ],
             onTap: (index) {},
