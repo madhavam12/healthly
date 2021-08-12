@@ -2,10 +2,15 @@ import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:healthly/covidDS/config/palette.dart';
 import 'package:healthly/covidDS/config/styles.dart';
-import 'package:healthly/covidDS/data/data.dart';
+// import 'package:healthly/covidDS/data/data.dart';
 import 'package:healthly/covidDS/widgets/widgets.dart';
+import 'package:healthly/services/covid19API.dart';
 
 class StatsScreen extends StatefulWidget {
+  final CovidData data;
+
+  StatsScreen({this.data});
+
   @override
   _StatsScreenState createState() => _StatsScreenState();
 }
@@ -25,15 +30,15 @@ class _StatsScreenState extends State<StatsScreen> {
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             sliver: SliverToBoxAdapter(
-              child: StatsGrid(),
+              child: StatsGrid(data: widget.data),
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 20.0),
-            sliver: SliverToBoxAdapter(
-              child: CovidBarChart(covidCases: covidUSADailyNewCases),
-            ),
-          ),
+          // SliverPadding(
+          //   padding: const EdgeInsets.only(top: 20.0),
+          //   sliver: SliverToBoxAdapter(
+          //     child: CovidBarChart(covidCases: covidUSADailyNewCases),
+          //   ),
+          // ),
         ],
       ),
     );

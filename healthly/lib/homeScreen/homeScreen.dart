@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'dart:async';
-
+import 'package:healthly/covidDS/screens/home_screen.dart';
 import 'package:healthly/services/FirebaseAuthService.dart';
 import 'AllDoctorsPage.dart';
 import 'package:flutter/services.dart';
 import 'package:healthly/constant.dart';
 import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:healthly/covidDS/screens/bottom_nav_screen.dart';
+
 import 'package:healthly/profileCreation/docProfileCreation.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:liquid_ui/liquid_ui.dart';
@@ -410,7 +410,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => BottomNavScreen()));
+                                    builder: (context) => CovidHomeScreen()));
                           },
                           child: Container(
                             height: 200,

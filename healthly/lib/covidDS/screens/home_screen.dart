@@ -3,19 +3,28 @@ import 'package:healthly/covidDS/config/palette.dart';
 import 'package:healthly/covidDS/config/styles.dart';
 import 'package:healthly/covidDS/data/data.dart';
 import 'package:healthly/covidDS/widgets/widgets.dart';
+import 'screens.dart';
+import 'package:healthly/services/covid19API.dart';
 
-class HomeScreen extends StatefulWidget {
+class CovidHomeScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _CovidHomeScreenState createState() => _CovidHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  String _country = 'USA';
+class _CovidHomeScreenState extends State<CovidHomeScreen> {
+  String _country = 'IN';
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          CovidAPI api = CovidAPI();
+
+          api.dataForCountry(country: "India");
+        },
+      ),
       appBar: CustomAppBar(),
       body: CustomScrollView(
         physics: ClampingScrollPhysics(),
@@ -65,20 +74,21 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Are you feeling sick?',
+                  'Having symptoms?',
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.w600,
-                  ),
+                      color: Colors.white,
+                      fontSize: 22.0,
+                      fontFamily: "Raleway",
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: screenHeight * 0.01),
                 Text(
-                  'If you feel sick with any COVID-19 symptoms, please call or text us immediately for help',
+                  'If you feel sick with any COVID-19 symptoms, please call or text on the helpline number immediately for help',
                   style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 15.0,
-                  ),
+                      color: Colors.white70,
+                      fontFamily: "QuickSand",
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: screenHeight * 0.03),
                 Row(
@@ -179,47 +189,60 @@ class _HomeScreenState extends State<HomeScreen> {
 
   SliverToBoxAdapter _buildYourOwnTest(double screenHeight) {
     return SliverToBoxAdapter(
-      child: Container(
-        margin: const EdgeInsets.symmetric(
-          vertical: 10.0,
-          horizontal: 20.0,
-        ),
-        padding: const EdgeInsets.all(10.0),
-        height: screenHeight * 0.15,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFAD9FE4), Palette.primaryColor],
+      child: GestureDetector(
+        onTap: () async {
+          CovidAPI api = CovidAPI();
+
+          CovidData data = await api.dataForCountry(country: "India");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => StatsScreen(data: data)));
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(
+            vertical: 10.0,
+            horizontal: 20.0,
           ),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Image.asset('assets/images/own_test.png'),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Do your own test!',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+          padding: const EdgeInsets.all(10.0),
+          height: screenHeight * 0.15,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFAD9FE4), Palette.primaryColor],
+            ),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Image.asset('assets/images/own_test.png'),
+              SizedBox(width: 5),
+              Flexible(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'View Statistics',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                    Text(
+                      'Tap here to view the latest statistics',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: screenHeight * 0.01),
-                Text(
-                  'Follow the instructions\nto do your own test.',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                  ),
-                  maxLines: 2,
-                ),
-              ],
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

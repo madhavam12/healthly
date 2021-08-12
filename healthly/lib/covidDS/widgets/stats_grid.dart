@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:healthly/services/covid19API.dart';
+
 class StatsGrid extends StatelessWidget {
+  final CovidData data;
+
+  const StatsGrid({@required this.data});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,7 +16,8 @@ class StatsGrid extends StatelessWidget {
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard('Total Cases', '1.81 M', Colors.orange),
+                _buildStatCard(
+                    'Total Cases', '${data.totalCases}', Colors.orange),
                 _buildStatCard('Deaths', '105 K', Colors.red),
               ],
             ),
