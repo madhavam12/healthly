@@ -195,8 +195,9 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                   onChanged: (val) => setState(() {
                     _country = val;
                     StateController controller =
-                        context.read(providers.userType);
+                        context.read(providers.selectedCountry);
                     controller.state = val;
+                    print(controller.state);
                   }),
                 ),
               ],

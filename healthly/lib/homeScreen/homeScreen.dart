@@ -5,6 +5,7 @@ import 'package:healthly/covidDS/screens/home_screen.dart';
 import 'package:healthly/services/FirebaseAuthService.dart';
 import 'AllDoctorsPage.dart';
 import 'package:flutter/services.dart';
+import 'package:healthly/covidDS/config/styles.dart';
 import 'package:healthly/constant.dart';
 import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -416,6 +417,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 200,
                             width: double.infinity,
                             decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.7),
+                                  blurRadius: 25.0,
+                                ),
+                              ],
                               borderRadius: BorderRadius.all(
                                 Radius.circular(15),
                               ),
@@ -442,7 +449,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 alignment: Alignment.center,
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 120),
+                                    SizedBox(height: 100),
                                     Text(
                                       "Covid-19 Information",
                                       style: TextStyle(
@@ -453,6 +460,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontSize: 25.0,
                                       ),
                                     ),
+                                    SizedBox(height: 10),
+                                    FlatButton.icon(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                        horizontal: 20.0,
+                                      ),
+                                      onPressed: () async {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CovidHomeScreen()));
+                                      },
+                                      color: Colors.orange,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      icon: const Icon(
+                                        Icons.dashboard,
+                                        color: Colors.white,
+                                      ),
+                                      label: Text(
+                                        'View',
+                                        style: Styles.buttonTextStyle
+                                            .copyWith(fontFamily: "QuickSand"),
+                                      ),
+                                      textColor: Colors.white,
+                                    ),
+                                    SizedBox(height: 10),
                                   ],
                                 ),
                               ),

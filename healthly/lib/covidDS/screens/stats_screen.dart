@@ -107,7 +107,7 @@ class _StatsScreenState extends State<StatsScreen> {
 
   SliverToBoxAdapter _buildRegionTabBar() {
     StateController controller = context.read(providers.selectedCountry);
-
+    print(controller.state);
     return SliverToBoxAdapter(
       child: DefaultTabController(
         length: 2,

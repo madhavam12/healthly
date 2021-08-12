@@ -36,6 +36,7 @@ dependencies:
   firebase_storage: ^10.0.1
   stream_chat: ^2.1.1
   pinput: ^1.2.0
+  webview_flutter: ^2.0.12
   bubble_tab_indicator: ^0.1.4
   fl_chart: ^0.36.3
   url_launcher: ^6.0.9
