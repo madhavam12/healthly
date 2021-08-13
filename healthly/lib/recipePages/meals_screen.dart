@@ -207,6 +207,19 @@ class MealType extends StatelessWidget {
     }
   }
 
+  _mealEmoji(int index) {
+    switch (index) {
+      case 0:
+        return '🍎';
+      case 1:
+        return '🍞';
+      case 2:
+        return '🥘';
+      default:
+        return '🍎';
+    }
+  }
+
   _mealImage(int index) {
     switch (index) {
       case 0:
@@ -224,7 +237,7 @@ class MealType extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 150,
-      margin: EdgeInsets.all(25),
+      margin: EdgeInsets.all(15),
       width: double.infinity,
       decoration: BoxDecoration(
         boxShadow: [
@@ -361,7 +374,7 @@ class MealType extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: Text(
-                      'View 🍲',
+                      'View ${_mealEmoji(mealIndex)}',
                       style: Styles.buttonTextStyle
                           .copyWith(fontFamily: "QuickSand"),
                     ),

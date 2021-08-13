@@ -13,11 +13,6 @@ import 'package:healthly/recipePages/search_screen.dart';
 import 'package:healthly/profileCreation/docProfileCreation.dart';
 import 'package:healthly/covidDsNew/providers/home_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:healthly/covidDsNew/screens/root_page.dart';
-import 'package:healthly/covidDsNew/screens/root_page.dart';
-import 'package:healthly/covidDsNew/screens/details_screen.dart';
-import 'package:healthly/covidDsNew/screens/view_all_screen.dart';
-import 'package:healthly/covidDsNew/screens/link_details_screen.dart';
 
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:liquid_ui/liquid_ui.dart';
@@ -414,134 +409,85 @@ class _HomeScreenState extends State<HomeScreen> {
                         //   ),
                         // ),
 
-                        GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => CovidHomeScreen()));
-                            // MultiProvider(
-                            //   providers: [
-                            //     ChangeNotifierProvider<HomeProvider>(
-                            //       create: (BuildContext ctx) => HomeProvider(),
-                            //     )
-                            //   ],
-                            //   child: RootPage(),
-                            // );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MultiProvider(
-                                  providers: [
-                                    ChangeNotifierProvider<HomeProvider>(
-                                      create: (BuildContext ctx) =>
-                                          HomeProvider(),
-                                    )
-                                  ],
-                                  child: MaterialApp(
-                                    //showPerformanceOverlay: true,
-                                    
-                                    theme: ThemeData(
-                                        pageTransitionsTheme:
-                                            PageTransitionsTheme(builders: {
-                                      TargetPlatform.android:
-                                          CupertinoPageTransitionsBuilder()
-                                    })),
-                                    home: RootPage(),
-                                    routes: {
-                                      DetailsScreen.routeName:
-                                          (BuildContext ct) => DetailsScreen(),
-                                      ViewAll.routeName: (BuildContext ct) =>
-                                          ViewAll(),
-                                      LinkDetailsScreen.routeName:
-                                          (BuildContext ct) =>
-                                              LinkDetailsScreen()
-                                    },
-                                  ),
-                                ),
+                        Container(
+                          height: 150,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.7),
+                                blurRadius: 25.0,
                               ),
-                            );
-                          },
-                          child: Container(
-                            height: 150,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.7),
-                                  blurRadius: 25.0,
-                                ),
-                              ],
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              ),
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/covid.png'),
-                              ),
-                              color: Colors.blue,
+                            ],
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
                             ),
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/covid.png'),
+                            ),
+                            color: Colors.blue,
+                          ),
+                          alignment: Alignment.center,
+                          child: Align(
                             alignment: Alignment.center,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
-                                    gradient: new LinearGradient(
-                                        colors: [
-                                          Colors.black.withOpacity(0.4),
-                                          Colors.black.withOpacity(0.8),
-                                        ],
-                                        begin: const FractionalOffset(0.0, 0.0),
-                                        end: const FractionalOffset(1.0, 0.0),
-                                        stops: [0.1, 1.0],
-                                        tileMode: TileMode.clamp)),
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        SizedBox(height: 50),
-                                        Text(
-                                          "Covid-19 Information",
-                                          style: TextStyle(
-                                            letterSpacing: 1.5,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: "QuickSand",
-                                            fontSize: 25.0,
-                                          ),
-                                        ),
-                                        SizedBox(height: 10),
-                                        FlatButton.icon(
-                                          onPressed: () async {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        CovidHomeScreen()));
-                                          },
-                                          color: Colors.blueAccent,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                          icon: const Icon(
-                                            Icons.dashboard,
-                                            color: Colors.white,
-                                          ),
-                                          label: Text(
-                                            'View',
-                                            style: Styles.buttonTextStyle
-                                                .copyWith(
-                                                    fontFamily: "QuickSand"),
-                                          ),
-                                          textColor: Colors.white,
-                                        ),
-                                        SizedBox(height: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
+                                  gradient: new LinearGradient(
+                                      colors: [
+                                        Colors.black.withOpacity(0.4),
+                                        Colors.black.withOpacity(0.8),
                                       ],
-                                    ),
+                                      begin: const FractionalOffset(0.0, 0.0),
+                                      end: const FractionalOffset(1.0, 0.0),
+                                      stops: [0.1, 1.0],
+                                      tileMode: TileMode.clamp)),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 50),
+                                      Text(
+                                        "Covid-19 Information",
+                                        style: TextStyle(
+                                          letterSpacing: 1.5,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "QuickSand",
+                                          fontSize: 25.0,
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      FlatButton.icon(
+                                        onPressed: () async {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CovidHomeScreen()));
+                                        },
+                                        color: Colors.blueAccent,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                        icon: const Icon(
+                                          Icons.dashboard,
+                                          color: Colors.white,
+                                        ),
+                                        label: Text(
+                                          'View',
+                                          style: Styles.buttonTextStyle
+                                              .copyWith(
+                                                  fontFamily: "QuickSand"),
+                                        ),
+                                        textColor: Colors.white,
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -623,7 +569,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                               ),
                                               Text(
-                                                "Enter the calories and your diet (Vegan, Gluten Free,etc) and get instant healthly receipes for dishes.",
+                                                "Enter the calories and your diet (Vegan, Gluten Free,etc) and get instant healthly receipes for breakfast, lunch & dinner.",
                                                 maxLines: 4,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
