@@ -5,6 +5,7 @@ import 'package:healthly/models/recipe_model.dart';
 import 'package:healthly/recipePages/recipe_screen.dart';
 import 'package:healthly/services/receipeService.dart';
 import 'package:healthly/covidDS/config/styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MealsScreen extends StatefulWidget {
   final MealPlan mealPlan;
@@ -92,6 +93,7 @@ class _MealsScreenState extends State<MealsScreen> {
       onTap: () async {
         Recipe recipe =
             await ApiService.instance.fetchRecipe(meal.id.toString());
+        print(recipe.spoonacularSourceUrl);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -172,6 +174,11 @@ class _MealsScreenState extends State<MealsScreen> {
             }
 
             Meal meal = widget.mealPlan.meals[index - 1];
+            print(meal.id);
+            // return _buildMealCard(
+            //   meal,
+            //   index - 1,
+            // );
             return MealType(
               meal: meal,
               mealIndex: index - 1,
@@ -190,13 +197,13 @@ class MealType extends StatelessWidget {
   _mealType2(int index) {
     switch (index) {
       case 0:
-        return 'Breakfast 🍎';
+        return 'For Breakfast 🍎';
       case 1:
-        return 'Lunch 🍞';
+        return 'For Lunch 🍞';
       case 2:
-        return 'Dinner 🥘';
+        return 'For Dinner 🥘';
       default:
-        return 'Breakfast 🍎';
+        return 'For Breakfast 🍎';
     }
   }
 
@@ -257,40 +264,104 @@ class MealType extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 50),
-                  Text(
-                    _mealType2(mealIndex),
-                    style: TextStyle(
-                      letterSpacing: 1.5,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "QuickSand",
-                      fontSize: 25.0,
+                  Flexible(
+                    child: Text(
+                      _mealType2(mealIndex),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        letterSpacing: 1.5,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "QuickSand",
+                        fontSize: 25.0,
+                      ),
                     ),
                   ),
                   SizedBox(height: 10),
-                  FlatButton.icon(
+                  FlatButton(
                     onPressed: () async {
-                      String mealType = _mealType(mealIndex);
+                      // String mealType = _mealType(mealIndex);
                       Recipe recipe = await ApiService.instance
                           .fetchRecipe(meal.id.toString());
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => RecipeScreen(
-                                    mealType: mealType,
-                                    recipe: recipe,
-                                  )));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (_) => RecipeScreen(
+                      //               mealType: mealType,
+                      //               recipe: recipe.spoonacularSourceUrl,
+                      //             )));
+                      print(recipe.spoonacularSourceUrl);
+                      print(recipe.spoonacularSourceUrl);
+
+                      if (recipe.spoonacularSourceUrl == null &&
+                          recipe.sourceUrl == null) {
+                        showInSnackBar(
+                            context: context,
+                            value:
+                                "Spooncular daily API quota reached, please try after some time or setup billing.",
+                            color: Colors.red,
+                            sec: 12);
+                        return 0;
+                      }
+                      if (recipe.spoonacularSourceUrl != null &&
+                          recipe.sourceUrl != null) {
+                        await canLaunch(recipe.spoonacularSourceUrl)
+                            ? await launch(recipe.spoonacularSourceUrl)
+                            : showInSnackBar(
+                                context: context,
+                                value:
+                                    "Couldn't launch the URL, an unknown error occured",
+                                color: Colors.red,
+                                sec: 8);
+                        return 0;
+                      }
+                      if (recipe.spoonacularSourceUrl != null &&
+                          recipe.sourceUrl == null) {
+                        await canLaunch(recipe.spoonacularSourceUrl)
+                            ? await launch(recipe.spoonacularSourceUrl)
+                            : showInSnackBar(
+                                context: context,
+                                value:
+                                    "Couldn't launch the URL, an unknown error occured",
+                                color: Colors.red,
+                                sec: 8);
+                        return 0;
+                      }
+                      if (recipe.spoonacularSourceUrl == null &&
+                          recipe.sourceUrl != null) {
+                        await canLaunch(
+                          recipe.sourceUrl,
+                        )
+                            ? await launch(
+                                recipe.sourceUrl,
+                              )
+                            : showInSnackBar(
+                                context: context,
+                                value:
+                                    "Couldn't launch the URL, an unknown error occured",
+                                color: Colors.red,
+                                sec: 8);
+                        return 0;
+                      }
+
+                      await canLaunch(recipe.spoonacularSourceUrl)
+                          ? await launch(
+                              recipe.spoonacularSourceUrl,
+                            )
+                          : showInSnackBar(
+                              context: context,
+                              value:
+                                  "Couldn't launch the URL, an unknown error occured",
+                              color: Colors.red,
+                              sec: 8);
                     },
                     color: Colors.blueAccent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    icon: const Icon(
-                      Icons.dashboard,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      'View',
+                    child: Text(
+                      'View 🍲',
                       style: Styles.buttonTextStyle
                           .copyWith(fontFamily: "QuickSand"),
                     ),
@@ -315,6 +386,7 @@ class NutrientCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 180,
+      margin: EdgeInsets.all(20),
       width: double.infinity,
       decoration: BoxDecoration(
         boxShadow: [
@@ -346,13 +418,13 @@ class NutrientCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
-                      height: 100,
+                      height: 80,
                       margin: EdgeInsets.only(
-                          bottom: 60, top: 1, right: 5, left: 5),
+                          bottom: 40, top: 1, right: 5, left: 5),
                       width: 100,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/images/food.png"),
+                          image: AssetImage("assets/images/bowl.png"),
                         ),
                       ),
                     ),
@@ -363,45 +435,86 @@ class NutrientCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Healthy Receipe Finder",
+                          "Nutrients Information",
                           style: TextStyle(
                             letterSpacing: 1.5,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontFamily: "QuickSand",
-                            fontSize: 18.0,
+                            fontSize: 20.0,
                           ),
                         ),
-                        Text(
-                          "Enter the calories and your diet (Vegan, Gluten Free,etc) and get instant healthly receipes for dishes.",
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.9),
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "QuickSand",
-                            fontSize: 11.0,
+                        RichText(
+                          text: TextSpan(
+                            text: 'Calories: ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "QuickSand",
+                              fontSize: 20,
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '${mealPlan.calories.toString()} cal',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 15),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(height: 10),
-                        FlatButton.icon(
-                          onPressed: () async {},
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Fat: ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "QuickSand",
+                              fontSize: 20,
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '${mealPlan.fat.toString()} g',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 15),
+                              ),
+                            ],
                           ),
-                          icon: const Icon(
-                            Icons.search,
-                            color: Colors.black,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Carbs: ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "QuickSand",
+                              fontSize: 20,
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '${mealPlan.carbs.toString()} cal',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 15),
+                              ),
+                            ],
                           ),
-                          label: Text(
-                            'Find Now!',
-                            style: Styles.buttonTextStyle.copyWith(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontFamily: "QuickSand"),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Protein: ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "QuickSand",
+                              fontSize: 20,
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '${mealPlan.protein.toString()} g',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 15),
+                              ),
+                            ],
                           ),
-                          textColor: Colors.white,
                         ),
                         SizedBox(height: 10),
                       ],
@@ -415,6 +528,20 @@ class NutrientCard extends StatelessWidget {
       ),
     );
   }
+}
+
+void showInSnackBar(
+    {String value, Color color, int sec = 3, @required BuildContext context}) {
+  ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+    content: new Text(
+      value,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          color: Colors.white, fontSize: 16.0, fontFamily: "WorkSansSemiBold"),
+    ),
+    backgroundColor: color,
+    duration: Duration(seconds: sec),
+  ));
 }
 
 _mealType(int index) {

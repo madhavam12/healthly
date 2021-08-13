@@ -41,20 +41,37 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        // backgroundColor: Palette.primaryColor,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back, color: Colors.black),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(
-                'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80'),
-            fit: BoxFit.cover,
-          ),
-        ),
+            // image: DecorationImage(
+            //   image: NetworkImage(
+            //       'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80'),
+            //   fit: BoxFit.cover,
+            // ),
+            ),
         child: Center(
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 30),
             padding: EdgeInsets.symmetric(horizontal: 30),
             height: MediaQuery.of(context).size.height * 0.55,
             decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.4),
+                  blurRadius: 25.0,
+                ),
+              ],
               color: Colors.white.withOpacity(0.9),
               borderRadius: BorderRadius.circular(15),
             ),
@@ -140,7 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Text(
-                    'Search',
+                    'Find Meal',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 22,

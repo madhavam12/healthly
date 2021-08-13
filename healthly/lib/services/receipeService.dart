@@ -60,8 +60,10 @@ class ApiService {
 
     try {
       var response = await http.get(uri, headers: headers);
+      // List data1 = json.decode(response.body);
       Map<String, dynamic> data = json.decode(response.body);
       Recipe recipe = Recipe.fromMap(data);
+      print('recipi is ${data}');
       return recipe;
     } catch (err) {
       throw err.toString();
