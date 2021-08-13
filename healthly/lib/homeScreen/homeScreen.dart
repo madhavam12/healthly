@@ -11,6 +11,14 @@ import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:healthly/recipePages/search_screen.dart';
 import 'package:healthly/profileCreation/docProfileCreation.dart';
+import 'package:healthly/covidDsNew/providers/home_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:healthly/covidDsNew/screens/root_page.dart';
+import 'package:healthly/covidDsNew/screens/root_page.dart';
+import 'package:healthly/covidDsNew/screens/details_screen.dart';
+import 'package:healthly/covidDsNew/screens/view_all_screen.dart';
+import 'package:healthly/covidDsNew/screens/link_details_screen.dart';
+
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:liquid_ui/liquid_ui.dart';
 import 'package:healthly/Models/userIdModel.dart';
@@ -408,10 +416,51 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         GestureDetector(
                           onTap: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => CovidHomeScreen()));
+                            // MultiProvider(
+                            //   providers: [
+                            //     ChangeNotifierProvider<HomeProvider>(
+                            //       create: (BuildContext ctx) => HomeProvider(),
+                            //     )
+                            //   ],
+                            //   child: RootPage(),
+                            // );
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CovidHomeScreen()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MultiProvider(
+                                  providers: [
+                                    ChangeNotifierProvider<HomeProvider>(
+                                      create: (BuildContext ctx) =>
+                                          HomeProvider(),
+                                    )
+                                  ],
+                                  child: MaterialApp(
+                                    //showPerformanceOverlay: true,
+                                    
+                                    theme: ThemeData(
+                                        pageTransitionsTheme:
+                                            PageTransitionsTheme(builders: {
+                                      TargetPlatform.android:
+                                          CupertinoPageTransitionsBuilder()
+                                    })),
+                                    home: RootPage(),
+                                    routes: {
+                                      DetailsScreen.routeName:
+                                          (BuildContext ct) => DetailsScreen(),
+                                      ViewAll.routeName: (BuildContext ct) =>
+                                          ViewAll(),
+                                      LinkDetailsScreen.routeName:
+                                          (BuildContext ct) =>
+                                              LinkDetailsScreen()
+                                    },
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                           child: Container(
                             height: 150,
