@@ -54,8 +54,8 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Colors.white,
+      // backgroundColor: Palette.primaryColor,
+
       body: isLoading ? LoadingScreen() : pages[currentPageIndex],
     );
   }
