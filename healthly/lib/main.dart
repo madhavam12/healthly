@@ -8,6 +8,7 @@ import 'package:healthly/homeScreen/homeScreen.dart';
 import 'package:hive/hive.dart';
 import 'profileCreation/docProfileCreation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +17,10 @@ void main() async {
   var box = await Hive.openBox('doctorCreationBox');
   var box2 = await Hive.openBox('isDoctor');
   var box3 = await Hive.openBox('city');
-
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(ProviderScope(
     child: LiquidApp(materialApp: MaterialApp(home: getRoute())),
   ));

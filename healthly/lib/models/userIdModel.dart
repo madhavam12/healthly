@@ -11,7 +11,8 @@ class DocIDModel {
   final String urlAvatar;
 
   final String email;
-
+  final String aboutMe;
+  final bool isDoc;
   final String cityName;
 
   final String phoneNumber;
@@ -20,9 +21,11 @@ class DocIDModel {
 
   DocIDModel({
     @required this.name,
+    @required this.isDoc,
     @required this.idUser,
     @required this.speciality,
     @required this.email,
+    @required this.aboutMe,
     @required this.cityName,
     @required this.urlAvatar,
     @required this.phoneNumber,
@@ -32,16 +35,20 @@ class DocIDModel {
       : name = json['name'],
         cityName = json['cityName'],
         idUser = json['idUser'],
+        isDoc = json['isDoc'],
         speciality = json['speciality'],
         email = json['email'],
         urlAvatar = json['urlAvatar'],
         phoneNumber = json['phoneNumber'],
+        aboutMe = json['aboutMe'],
         dateAndTime = json['dateAndTime'];
 
   Map<String, dynamic> toJson() => {
         'phoneNumber': phoneNumber,
         'cityName': cityName,
         'urlAvatar': urlAvatar,
+        'aboutMe': aboutMe,
+        "isDoc": isDoc,
         'name': name,
         'speciality': speciality,
         'idUser': idUser,

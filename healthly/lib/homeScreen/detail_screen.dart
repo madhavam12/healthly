@@ -1,13 +1,23 @@
 import 'package:healthly/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:healthly/covidDS/config/styles.dart';
 
 class DoctorDetailScreen extends StatelessWidget {
-  var _name;
-  var _description;
-  var _imageUrl;
+  String name;
+  String speciality;
+  String imageUrl;
+  String aboutMe;
+  String phoneNumber;
 
-  DoctorDetailScreen(this._name, this._description, this._imageUrl);
+  DoctorDetailScreen(
+      {this.name,
+      this.phoneNumber,
+      this.speciality,
+      this.imageUrl,
+      this.aboutMe});
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +53,6 @@ class DoctorDetailScreen extends StatelessWidget {
                         height: 18,
                       ),
                     ),
-                    SvgPicture.asset(
-                      'assets/icons/3dots.svg',
-                      height: 18,
-                    ),
                   ],
                 ),
               ),
@@ -68,10 +74,8 @@ class DoctorDetailScreen extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Image.asset(
-                            _imageUrl,
-                            height: 120,
-                          ),
+                          Image.network(imageUrl,
+                              height: 120, fit: BoxFit.cover),
                           SizedBox(
                             width: 20,
                           ),
@@ -79,7 +83,7 @@ class DoctorDetailScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                _name,
+                                name,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -90,7 +94,7 @@ class DoctorDetailScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                _description,
+                                speciality,
                                 style: TextStyle(
                                   color: kTitleTextColor.withOpacity(0.7),
                                 ),
@@ -126,16 +130,6 @@ class DoctorDetailScreen extends StatelessWidget {
                                   SizedBox(
                                     width: 16,
                                   ),
-                                  Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: kOrangeColor.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: SvgPicture.asset(
-                                      'assets/icons/video.svg',
-                                    ),
-                                  ),
                                 ],
                               ),
                             ],
@@ -157,34 +151,64 @@ class DoctorDetailScreen extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        'Dr. Stella is the top most heart surgeon in Flower\nHospital. She has done over 100 successful sugeries\nwithin past 3 years. She has achieved several\nawards for her wonderful contribution in her own\nfield. She’s available for private consultation for\ngiven schedules.',
+                        aboutMe,
                         style: TextStyle(
                           height: 1.6,
                           color: kTitleTextColor.withOpacity(0.7),
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Upcoming Schedules',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: kTitleTextColor,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 20,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton.icon(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 20.0,
+                            ),
+                            onPressed: () async {
+                              await canLaunch("tel:$phoneNumber")
+                                  ? await launch("tel:$phoneNumber")
+                                  : throw 'Could not launch';
+                            },
+                            color: Colors.orange,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            icon: const Icon(
+                              Icons.phone,
+                              color: Colors.white,
+                            ),
+                            label: Text(
+                              'Call Now',
+                              style: Styles.buttonTextStyle,
+                            ),
+                            textColor: Colors.white,
+                          ),
+                          FlatButton.icon(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 20.0,
+                            ),
+                            onPressed: () async {
+                              await canLaunch("sms:$phoneNumber")
+                                  ? await launch("sms:$phoneNumber")
+                                  : throw 'Could not launch';
+                            },
+                            color: Colors.green,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            icon: const Icon(
+                              Icons.chat_bubble,
+                              color: Colors.white,
+                            ),
+                            label: Text(
+                              'Send SMS',
+                              style: Styles.buttonTextStyle,
+                            ),
+                            textColor: Colors.white,
+                          ),
+                        ],
                       ),
                     ],
                   ),

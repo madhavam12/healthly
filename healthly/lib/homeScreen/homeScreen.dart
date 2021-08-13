@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:healthly/covidDS/config/styles.dart';
 
 import 'package:healthly/relaxScreen/relaxScreen.dart';
-
+import 'detail_screen.dart';
 import 'package:healthly/constant.dart';
 import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -662,16 +662,81 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 snapshot.data.docs.length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
-                                              return PersonCard(
-                                                imgPath: snapshot
-                                                    .data.docs[index]
-                                                    .data()["photoURL"],
-                                                name: snapshot.data.docs[index]
-                                                    .data()["userName"],
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              DoctorDetailScreen(
+                                                                name: snapshot.data.docs[index].data()[
+                                                                            "name"] ==
+                                                                        null
+                                                                    ? ""
+                                                                    : snapshot
+                                                                        .data
+                                                                        .docs[
+                                                                            index]
+                                                                        .data()["name"],
+                                                                speciality: snapshot.data.docs[index].data()[
+                                                                            "speciality"] ==
+                                                                        null
+                                                                    ? ""
+                                                                    : snapshot
+                                                                        .data
+                                                                        .docs[
+                                                                            index]
+                                                                        .data()["speciality"],
+                                                                imageUrl: snapshot
+                                                                        .data
+                                                                        .docs[index]
+                                                                        .data()[
+                                                                    "urlAvatar"],
+                                                                aboutMe: snapshot.data.docs[index].data()[
+                                                                            "aboutMe"] ==
+                                                                        null
+                                                                    ? ""
+                                                                    : snapshot
+                                                                        .data
+                                                                        .docs[
+                                                                            index]
+                                                                        .data()["aboutMe"],
+                                                                phoneNumber: snapshot.data.docs[index].data()[
+                                                                            "phoneNumber"] ==
+                                                                        null
+                                                                    ? ""
+                                                                    : snapshot
+                                                                        .data
+                                                                        .docs[
+                                                                            index]
+                                                                        .data()["phoneNumber"],
+                                                              )));
+                                                },
+                                                child: PersonCard(
+                                                  imgPath: snapshot
+                                                      .data.docs[index]
+                                                      .data()["urlAvatar"],
+                                                  name: snapshot
+                                                      .data.docs[index]
+                                                      .data()["name"],
+                                                ),
                                               );
                                             });
                                       } else {
-                                        return Text("No Doctors");
+                                        return Center(
+                                          child: Container(
+                                            margin: EdgeInsets.all(10),
+                                            child: Text(
+                                              "No doctors available in your city",
+                                              style: TextStyle(
+                                                  color: Colors.orange,
+                                                  fontSize: 20,
+
+                                                  fontWeight:FontWeight.bold,
+                                                  fontFamily: "QuickSand"),
+                                            ),
+                                          ),
+                                        );
                                       }
                                     } else {
                                       return Text("No Doctors");

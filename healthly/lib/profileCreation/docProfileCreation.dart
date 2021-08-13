@@ -78,6 +78,9 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
   final TextEditingController _emailController = TextEditingController();
 
   final FocusNode _emailFocus = FocusNode();
+  final TextEditingController _aboutController = TextEditingController();
+
+  final FocusNode _aboutFocus = FocusNode();
 
   File _image;
 
@@ -207,6 +210,12 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                     iconData: LineAwesomeIcons.phone,
                     labelText: "Phone Number",
                     hintText: "Write your phone number"),
+                GetTextField(
+                    controller: _aboutController,
+                    focusNode: _aboutFocus,
+                    iconData: LineAwesomeIcons.phone,
+                    labelText: "About you",
+                    hintText: "Write something about you or your work"),
                 Speciality(),
                 GetTextField(
                     controller: _emailController,
@@ -234,7 +243,14 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                           color: Colors.red);
                       return 0;
                     }
-
+                    if (_aboutController.text == "") {
+                      showInSnackBar(
+                          context: context,
+                          value:
+                              "Please enter something in the about me section.",
+                          color: Colors.red);
+                      return 0;
+                    }
                     openLoadingDialog(context, "Creating");
 
                     FirebaseStorageService _firebaseStorageService =
@@ -258,6 +274,7 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                           color: Colors.red);
                       return 0;
                     }
+
                     if (await ConnectionVerify.connectionStatus()) {
                       FirestoreDatabaseService _firestoreService =
                           FirestoreDatabaseService();
@@ -275,6 +292,7 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                       }
                       var create = await _firestoreService.createDoctorProfile(
                         userModel: DocIDModel(
+                          aboutMe: _aboutController.text,
                           speciality: speciality,
                           urlAvatar: imgUpload != null
                               ? imgUpload[0]
