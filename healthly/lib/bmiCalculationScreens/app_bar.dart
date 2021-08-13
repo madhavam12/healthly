@@ -40,7 +40,10 @@ class BmiAppBar extends StatelessWidget {
         children: [
           TextSpan(
             text: isInputPage ? "Calculate your BMI" : "Your BMI",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontFamily: "QuickSand",
+            ),
           ),
           TextSpan(text: ""),
         ],

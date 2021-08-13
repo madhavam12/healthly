@@ -104,37 +104,36 @@ class InputPageState extends State<InputPage> with TickerProviderStateMixin {
   }
 
   Widget _buildBottom(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: screenAwareSize(16.0, context),
-        right: screenAwareSize(16.0, context),
-        bottom: screenAwareSize(22.0, context),
-        top: screenAwareSize(14.0, context),
-      ),
-      // child: PacmanSlider(
-      //   submitAnimationController: _submitAnimationController,
-      //   onSubmit: onPacmanSubmit,
-      // ),
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: screenAwareSize(16.0, context),
+          right: screenAwareSize(16.0, context),
+          bottom: screenAwareSize(22.0, context),
+          top: screenAwareSize(14.0, context),
+        ),
+        // child: PacmanSlider(
+        //   submitAnimationController: _submitAnimationController,
+        //   onSubmit: onPacmanSubmit,
+        // ),
 
-      child: FlatButton.icon(
-        onPressed: () async {},
-        color: Colors.blue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        icon: const Icon(
-          Icons.search,
-          color: Colors.black,
-        ),
-        padding: EdgeInsets.all(20),
-        label: Center(
-          child: Text(
-            'Calculate your BMI',
-            style: Styles.buttonTextStyle.copyWith(
-                color: Colors.white, fontSize: 25, fontFamily: "QuickSand"),
+        child: FlatButton.icon(
+          onPressed: onPacmanSubmit,
+          color: Colors.orange,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
           ),
+          icon: const Icon(Icons.search, color: Colors.white),
+          padding: EdgeInsets.all(10),
+          label: Center(
+            child: Text(
+              'Calculate your BMI',
+              style: Styles.buttonTextStyle.copyWith(
+                  color: Colors.white, fontSize: 20, fontFamily: "QuickSand"),
+            ),
+          ),
+          textColor: Colors.white,
         ),
-        textColor: Colors.white,
       ),
     );
   }

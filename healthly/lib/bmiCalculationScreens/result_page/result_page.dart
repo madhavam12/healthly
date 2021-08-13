@@ -100,11 +100,17 @@ class ResultCard extends StatelessWidget {
           child: Column(children: [
             Text(
               bmi.toStringAsFixed(1),
-              style: TextStyle(fontSize: 140.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 140.0,
+                  fontFamily: "QuickSand",
+                  fontWeight: FontWeight.bold),
             ),
             Text(
               'BMI = ${bmi.toStringAsFixed(2)} kg/m²',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: "QuickSand",
+                  fontWeight: FontWeight.w700),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16.0),

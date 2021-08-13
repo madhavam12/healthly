@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:async';
@@ -6,6 +7,9 @@ import 'package:healthly/services/FirebaseAuthService.dart';
 import 'AllDoctorsPage.dart';
 import 'package:flutter/services.dart';
 import 'package:healthly/covidDS/config/styles.dart';
+
+import 'package:healthly/relaxScreen/relaxScreen.dart';
+
 import 'package:healthly/constant.dart';
 import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -496,133 +500,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 50),
 
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SearchScreen()));
-                          },
-                          child: Container(
-                            height: 180,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.7),
-                                  blurRadius: 25.0,
-                                ),
-                              ],
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              ),
-                              // image: DecorationImage(
-                              //   image: AssetImage('assets/images/covid.png'),
-                              // ),
-                              color: Colors.orange.withOpacity(0.89),
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(15),
-                                ),
-                              ),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Container(
-                                  child: Center(
-                                    child: Row(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Container(
-                                            height: 100,
-                                            margin: EdgeInsets.only(
-                                                bottom: 60,
-                                                top: 1,
-                                                right: 5,
-                                                left: 5),
-                                            width: 100,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/images/food.png"),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Healthy Receipe Finder",
-                                                style: TextStyle(
-                                                  letterSpacing: 1.5,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: "QuickSand",
-                                                  fontSize: 18.0,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Enter the calories and your diet (Vegan, Gluten Free,etc) and get instant healthly receipes for breakfast, lunch & dinner.",
-                                                maxLines: 4,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  color: Colors.white
-                                                      .withOpacity(0.9),
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: "QuickSand",
-                                                  fontSize: 11.0,
-                                                ),
-                                              ),
-                                              SizedBox(height: 10),
-                                              FlatButton.icon(
-                                                onPressed: () async {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              SearchScreen()));
-                                                },
-                                                color: Colors.white,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0),
-                                                ),
-                                                icon: const Icon(
-                                                  Icons.search,
-                                                  color: Colors.black,
-                                                ),
-                                                label: Text(
-                                                  'Find Now!',
-                                                  style: Styles.buttonTextStyle
-                                                      .copyWith(
-                                                          color: Colors.black,
-                                                          fontSize: 15,
-                                                          fontFamily:
-                                                              "QuickSand"),
-                                                ),
-                                                textColor: Colors.white,
-                                              ),
-                                              SizedBox(height: 10),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 50),
                         Container(
                           height: 180,
                           width: double.infinity,
@@ -679,7 +556,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              "Calculate BMI",
+                                              "Healthy Meal Finder",
                                               style: TextStyle(
                                                 letterSpacing: 1.5,
                                                 color: Colors.white,
@@ -689,7 +566,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ),
                                             Text(
-                                              "Tap below to calculate your BMI and check if you're healthy. Always stay healthy!",
+                                              "Enter the calories and your diet (Vegan, Gluten Free,etc) and get instant healthly receipes for breakfast, lunch & dinner.",
                                               maxLines: 4,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
@@ -703,16 +580,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                             SizedBox(height: 10),
                                             FlatButton.icon(
                                               onPressed: () async {
- Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => InputPage()));
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SearchScreen()));
                                               },
                                               color: Colors.white,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        30.0),
+                                                    BorderRadius.circular(30.0),
                                               ),
                                               icon: const Icon(
                                                 Icons.search,
@@ -740,12 +617,321 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 50),
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                margin: EdgeInsets.all(
+                                  10.0,
+                                ),
+                                child: Text(
+                                  "Top Doctors: ",
+                                  style: TextStyle(
+                                    letterSpacing: 1.5,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "QuickSand",
+                                    fontSize: 25.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 180,
+                              // margin: EdgeInsets.all(15),
+                              child: StreamBuilder<QuerySnapshot<Map>>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection("users")
+                                      .where('isDoc', isEqualTo: true)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasError) {
+                                      return Text("${snapshot.error}");
+                                    }
+
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
+                                    }
+                                    if (snapshot.hasData) {
+                                      if (snapshot.data.docs.isNotEmpty) {
+                                        return ListView.builder(
+                                            itemCount:
+                                                snapshot.data.docs.length,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              return PersonCard(
+                                                imgPath: snapshot
+                                                    .data.docs[index]
+                                                    .data()["photoURL"],
+                                                name: snapshot.data.docs[index]
+                                                    .data()["userName"],
+                                              );
+                                            });
+                                      } else {
+                                        return Text("No Doctors");
+                                      }
+                                    } else {
+                                      return Text("No Doctors");
+                                    }
+                                  }),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 50),
+                        Container(
+                          height: 180,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.7),
+                                blurRadius: 25.0,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                            // image: DecorationImage(
+                            //   image: AssetImage('assets/images/covid.png'),
+                            // ),
+                            color: Colors.blue.withOpacity(0.89),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                            ),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                child: Center(
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        child: Container(
+                                          margin: EdgeInsets.all(15),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Calculate Your BMI",
+                                                style: TextStyle(
+                                                  letterSpacing: 1.5,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: "QuickSand",
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                              Text(
+                                                "Tap below to calculate your BMI instantly. Always stay healthy!",
+                                                maxLines: 4,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(0.9),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: "QuickSand",
+                                                  fontSize: 11.0,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10),
+                                              FlatButton.icon(
+                                                onPressed: () async {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              InputPage()));
+                                                },
+                                                color: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.0),
+                                                ),
+                                                icon: const Icon(
+                                                  Icons.search,
+                                                  color: Colors.black,
+                                                ),
+                                                label: Text(
+                                                  'Calculate Now!',
+                                                  style: Styles.buttonTextStyle
+                                                      .copyWith(
+                                                          color: Colors.black,
+                                                          fontSize: 15,
+                                                          fontFamily:
+                                                              "QuickSand"),
+                                                ),
+                                                textColor: Colors.white,
+                                              ),
+                                              SizedBox(height: 10),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                          height: 100,
+                                          margin: EdgeInsets.only(
+                                              bottom: 60,
+                                              top: 1,
+                                              right: 5,
+                                              left: 5),
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/weight.png"),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 50),
+
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: 180,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.7),
+                                  blurRadius: 25.0,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                              // image: DecorationImage(
+                              //   image: AssetImage('assets/images/covid.png'),
+                              // ),
+                              color: Colors.amber.withOpacity(0.99),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                              ),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  child: Center(
+                                    child: Row(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Container(
+                                            height: 100,
+                                            margin: EdgeInsets.only(
+                                                bottom: 60,
+                                                top: 1,
+                                                right: 5,
+                                                left: 5),
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                    "assets/images/meditate.png"),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Relieve Stress",
+                                                style: TextStyle(
+                                                  letterSpacing: 1.5,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: "QuickSand",
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                              Text(
+                                                "Feeling Stressed? Tap below to listen to some refreshing music from nature.",
+                                                maxLines: 4,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(0.9),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: "QuickSand",
+                                                  fontSize: 11.0,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10),
+                                              FlatButton.icon(
+                                                onPressed: () async {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              HomeRoute()));
+                                                },
+                                                color: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.0),
+                                                ),
+                                                icon: Icon(
+                                                  Icons.music_note,
+                                                  color: Colors.black,
+                                                ),
+                                                label: Text(
+                                                  'Listen',
+                                                  style: Styles.buttonTextStyle
+                                                      .copyWith(
+                                                          color: Colors.black,
+                                                          fontSize: 15,
+                                                          fontFamily:
+                                                              "QuickSand"),
+                                                ),
+                                                textColor: Colors.white,
+                                              ),
+                                              SizedBox(height: 10),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
+
             // prefs != null
             //     ? ChatScreen(currentUserId: prefs.getString('id') ?? "")
             //     : Container(),
@@ -754,6 +940,60 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(color: Colors.yellow),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class PersonCard extends StatelessWidget {
+  final String name;
+  final String imgPath;
+  PersonCard({Key key, @required this.name, @required this.imgPath})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 130,
+      height: 180,
+      child: Stack(
+        children: <Widget>[
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Container(
+              width: 110,
+              height: 157,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 16,
+              ),
+              child: Column(
+                children: [
+                  Image.network(
+                    imgPath,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(height: 10),
+                  Flexible(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: kTitleTextColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
