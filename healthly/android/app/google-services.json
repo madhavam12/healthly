@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "952877407191-8q6ugpfqmgsqspd2lugotu02clgrdior.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.healthlyhealthapp",
+            "certificate_hash": "bbce85e3ee3f60bbc8b2944d609543c5a427cf47"
+          }
+        },
+        {
           "client_id": "952877407191-1c65icpkd0k0uofscm25dp496lphi5b3.apps.googleusercontent.com",
           "client_type": 3
         }
