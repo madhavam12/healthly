@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:connection_verify/connection_verify.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:async';
 
 void main() async {
   StreamSubscription subscription;

@@ -80,6 +80,27 @@ class _UserProfileViewState extends State<UserProfileView> {
     return formatted3;
   }
 
+  Widget getOption() {
+    if (doc.data()['isDoc']) {
+      return OptionRow(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileCreationView(),
+            ),
+          );
+        },
+        iconColor2: Color(0xFFFEF0E4),
+        text: "Edit Profile",
+        iconData: LineAwesomeIcons.pencil_ruler,
+        iconColor: Color(0xFFFE6D1E),
+      );
+    }
+    return Text("");
+    ;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,21 +175,20 @@ class _UserProfileViewState extends State<UserProfileView> {
                                     ),
                                   ),
                                   SizedBox(height: 5),
-                                  "${doc.data()['isDoc']}" == true
-                                      ? Text(
-                                          '~ ${doc.data()['speciality']}',
-                                          maxLines: 5,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            letterSpacing: 1.5,
-                                            color:
-                                                Colors.black.withOpacity(0.7),
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: "QuickSand",
-                                            fontSize: 14.0,
-                                          ),
-                                        )
-                                      : Container(),
+                                  Text(
+                                    doc.data()['isDoc'] == true
+                                        ? '~ ${doc.data()['speciality']}'
+                                        : "",
+                                    maxLines: 5,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      letterSpacing: 1.5,
+                                      color: Colors.black.withOpacity(0.7),
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "QuickSand",
+                                      fontSize: 13.0,
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
@@ -189,25 +209,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      "${doc.data()['isDoc']}" == true
-                          ? OptionRow(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProfileCreationView(),
-                                  ),
-                                );
-                                // NavigationService _navigationService =
-                                //     locator<NavigationService>();
-                                // _navigationService.navigateTo(Routes.editProfileView);
-                              },
-                              iconColor2: Color(0xFFFEF0E4),
-                              text: "Edit Profile",
-                              iconData: LineAwesomeIcons.pencil_ruler,
-                              iconColor: Color(0xFFFE6D1E),
-                            )
-                          : Container(),
+                      getOption(),
                       OptionRow(
                         onTap: () {
                           Navigator.push(

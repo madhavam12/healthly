@@ -68,6 +68,13 @@ class FirestoreDatabaseService {
         doc.data()['idUser'] != null &&
         doc.data()['email'] != null &&
         doc.data()['speciality'] != null) {
+          var box = Hive.box('doctorCreationBox');
+    var box2 = Hive.box('isDoctor');
+
+    box.put('isFilled', true);
+
+    box2.put("isDoctor", true);
+
       return true;
     } else {
       return false;

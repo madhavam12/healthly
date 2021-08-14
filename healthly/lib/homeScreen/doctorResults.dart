@@ -76,36 +76,36 @@ class _DoctorResultsState extends State<DoctorResults> {
                         return ListView.builder(
                             itemCount: snapshot.data.docs.length,
                             itemBuilder: (context, index) {
-                              if (snapshot.data.docs[index].id ==
-                                  FirebaseAuth.instance.currentUser.uid) {
-                                if (snapshot.data.docs.length == 1) {
-                                  return Center(
-                                    child: Container(
-                                      margin: EdgeInsets.all(20),
-                                      child: Center(
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    4),
-                                            Text(
-                                              "Sorry, no ${widget.speciality} available in your city.",
-                                              style: TextStyle(
-                                                  color: Colors.orange,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: "QuickSand"),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                return Container();
-                              }
+                              // if (snapshot.data.docs[index].id ==
+                              //     FirebaseAuth.instance.currentUser.uid) {
+                              //   if (snapshot.data.docs.length == 1) {
+                              //     return Center(
+                              //       child: Container(
+                              //         margin: EdgeInsets.all(20),
+                              //         child: Center(
+                              //           child: Column(
+                              //             children: [
+                              //               SizedBox(
+                              //                   height: MediaQuery.of(context)
+                              //                           .size
+                              //                           .height /
+                              //                       4),
+                              //               Text(
+                              //                 "Sorry, no ${widget.speciality} available in your city.",
+                              //                 style: TextStyle(
+                              //                     color: Colors.orange,
+                              //                     fontSize: 20,
+                              //                     fontWeight: FontWeight.bold,
+                              //                     fontFamily: "QuickSand"),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     );
+                              //   }
+                              //   return Container();
+                              // }
 
                               String name =
                                   snapshot.data.docs[index].data()['name'];
