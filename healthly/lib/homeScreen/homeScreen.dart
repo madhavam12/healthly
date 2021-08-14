@@ -5,6 +5,8 @@ import 'dart:async';
 import 'package:healthly/covidDS/screens/home_screen.dart';
 import 'package:healthly/services/FirebaseAuthService.dart';
 import 'AllDoctorsPage.dart';
+
+import 'package:healthly/userProfileScreen/userProfile.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:healthly/covidDS/config/styles.dart';
@@ -1081,7 +1083,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //     : Container(),
             AllDoctors(),
             AllDoctorsIndia(),
-            Container(color: Colors.yellow),
+            UserProfileView(),
           ],
         ),
       ),
