@@ -205,17 +205,17 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                     labelText: "Name",
                     hintText: "Write your name"),
                 GetTextField(
+                    controller: _aboutController,
+                    focusNode: _aboutFocus,
+                    iconData: LineAwesomeIcons.user,
+                    labelText: "Bio",
+                    hintText: "Write something about you or your work"),
+                GetTextField(
                     controller: _phoneController,
                     focusNode: _phoneFocus,
                     iconData: LineAwesomeIcons.phone,
                     labelText: "Phone Number",
                     hintText: "Write your phone number"),
-                GetTextField(
-                    controller: _aboutController,
-                    focusNode: _aboutFocus,
-                    iconData: LineAwesomeIcons.phone,
-                    labelText: "About you",
-                    hintText: "Write something about you or your work"),
                 Speciality(),
                 GetTextField(
                     controller: _emailController,
@@ -246,8 +246,7 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                     if (_aboutController.text == "") {
                       showInSnackBar(
                           context: context,
-                          value:
-                              "Please enter something in the about me section.",
+                          value: "Please enter something in the bio section.",
                           color: Colors.red);
                       return 0;
                     }
@@ -292,6 +291,7 @@ class _ProfileCreationViewState extends State<ProfileCreationView> {
                       }
                       var create = await _firestoreService.createDoctorProfile(
                         userModel: DocIDModel(
+                          isDoc: true,
                           aboutMe: _aboutController.text,
                           speciality: speciality,
                           urlAvatar: imgUpload != null

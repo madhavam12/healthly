@@ -79,60 +79,82 @@ class DoctorDetailScreen extends StatelessWidget {
                           SizedBox(
                             width: 20,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                name,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: kTitleTextColor,
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  name,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: kTitleTextColor,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                speciality,
-                                style: TextStyle(
-                                  color: kTitleTextColor.withOpacity(0.7),
+                                SizedBox(
+                                  height: 10,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: kBlueColor.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: SvgPicture.asset(
-                                      'assets/icons/phone.svg',
-                                    ),
+                                Text(
+                                  speciality,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: kTitleTextColor.withOpacity(0.7),
                                   ),
-                                  SizedBox(
-                                    width: 16,
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: kYellowColor.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(10),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    GestureDetector(
+                                      onTap: () async {
+                                        await canLaunch("tel:$phoneNumber")
+                                            ? await launch("tel:$phoneNumber")
+                                            : throw 'Could not launch';
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: kBlueColor.withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: SvgPicture.asset(
+                                          'assets/icons/phone.svg',
+                                        ),
+                                      ),
                                     ),
-                                    child: SvgPicture.asset(
-                                      'assets/icons/chat.svg',
+                                    SizedBox(
+                                      width: 20,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 16,
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    GestureDetector(
+                                      onTap: () async {
+                                        await canLaunch("sms:$phoneNumber")
+                                            ? await launch("sms:$phoneNumber")
+                                            : throw 'Could not launch';
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: kYellowColor.withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: SvgPicture.asset(
+                                          'assets/icons/chat.svg',
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -156,6 +178,9 @@ class DoctorDetailScreen extends StatelessWidget {
                           height: 1.6,
                           color: kTitleTextColor.withOpacity(0.7),
                         ),
+                      ),
+                      SizedBox(
+                        height: 40,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

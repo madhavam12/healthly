@@ -9,13 +9,16 @@ import 'detail_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AllDoctors extends StatefulWidget {
-  AllDoctors({
+class DoctorResults extends StatefulWidget {
+  final String speciality;
+
+  DoctorResults({
     Key key,
+    @required this.speciality,
   }) : super(key: key);
 
   @override
-  _AllDoctorsState createState() => _AllDoctorsState();
+  _DoctorResultsState createState() => _DoctorResultsState();
 }
 
 List colors = [
@@ -26,7 +29,7 @@ List colors = [
 var box2 = Hive.box('city');
 String cityName = box2.get('name');
 
-class _AllDoctorsState extends State<AllDoctors> {
+class _DoctorResultsState extends State<DoctorResults> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +41,7 @@ class _AllDoctorsState extends State<AllDoctors> {
               child: Container(
                 margin: EdgeInsets.all(25),
                 child: Text(
-                  "All doctors in $cityName",
+                  "${widget.speciality} in $cityName",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "QuickSand",
@@ -52,9 +55,11 @@ class _AllDoctorsState extends State<AllDoctors> {
                   stream: FirebaseFirestore.instance
                       .collection("users")
                       .where("isDoc", isEqualTo: true)
+                      .where("speciality", isEqualTo: widget.speciality)
                       .where("cityName", isEqualTo: cityName)
                       .snapshots(),
                   builder: (context, snapshot) {
+                    print(widget.speciality);
                     print(speciality);
                     print(cityName);
 
@@ -71,36 +76,36 @@ class _AllDoctorsState extends State<AllDoctors> {
                         return ListView.builder(
                             itemCount: snapshot.data.docs.length,
                             itemBuilder: (context, index) {
-                              // if (snapshot.data.docs[index].id ==
-                              //     FirebaseAuth.instance.currentUser.uid) {
-                              //   if (snapshot.data.docs.length == 1) {
-                              //     return Center(
-                              //       child: Container(
-                              //         margin: EdgeInsets.all(20),
-                              //         child: Center(
-                              //           child: Column(
-                              //             children: [
-                              //               SizedBox(
-                              //                   height: MediaQuery.of(context)
-                              //                           .size
-                              //                           .height /
-                              //                       4),
-                              //               Text(
-                              //                 "Sorry, no ${widget.speciality} available in your city.",
-                              //                 style: TextStyle(
-                              //                     color: Colors.orange,
-                              //                     fontSize: 20,
-                              //                     fontWeight: FontWeight.bold,
-                              //                     fontFamily: "QuickSand"),
-                              //               ),
-                              //             ],
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     );
-                              //   }
-                              //   return Container();
-                              // }
+                              if (snapshot.data.docs[index].id ==
+                                  FirebaseAuth.instance.currentUser.uid) {
+                                if (snapshot.data.docs.length == 1) {
+                                  return Center(
+                                    child: Container(
+                                      margin: EdgeInsets.all(20),
+                                      child: Center(
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    4),
+                                            Text(
+                                              "Sorry, no ${widget.speciality} available in your city.",
+                                              style: TextStyle(
+                                                  color: Colors.orange,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: "QuickSand"),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                return Container();
+                              }
 
                               String name =
                                   snapshot.data.docs[index].data()['name'];
@@ -112,6 +117,7 @@ class _AllDoctorsState extends State<AllDoctors> {
                               colors.shuffle();
                               return GestureDetector(
                                 onTap: () {
+                                  print("object");
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -163,7 +169,7 @@ class _AllDoctorsState extends State<AllDoctors> {
                           child: Container(
                             margin: EdgeInsets.all(25),
                             child: Text(
-                              "Sorry, no doctors are available in your city.",
+                              "Sorry, no ${widget.speciality} available in your city.",
                               style: TextStyle(
                                   color: Colors.orange,
                                   fontSize: 20,

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:healthly/profileCreation/docProfileCreation.dart';
@@ -9,13 +11,13 @@ import 'detail_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AllDoctors extends StatefulWidget {
-  AllDoctors({
+class AllDoctorsIndia extends StatefulWidget {
+  AllDoctorsIndia({
     Key key,
   }) : super(key: key);
 
   @override
-  _AllDoctorsState createState() => _AllDoctorsState();
+  _AllDoctorsIndiaState createState() => _AllDoctorsIndiaState();
 }
 
 List colors = [
@@ -26,7 +28,7 @@ List colors = [
 var box2 = Hive.box('city');
 String cityName = box2.get('name');
 
-class _AllDoctorsState extends State<AllDoctors> {
+class _AllDoctorsIndiaState extends State<AllDoctorsIndia> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +40,7 @@ class _AllDoctorsState extends State<AllDoctors> {
               child: Container(
                 margin: EdgeInsets.all(25),
                 child: Text(
-                  "All doctors in $cityName",
+                  "All registered doctors in India",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "QuickSand",
@@ -52,7 +54,6 @@ class _AllDoctorsState extends State<AllDoctors> {
                   stream: FirebaseFirestore.instance
                       .collection("users")
                       .where("isDoc", isEqualTo: true)
-                      .where("cityName", isEqualTo: cityName)
                       .snapshots(),
                   builder: (context, snapshot) {
                     print(speciality);
