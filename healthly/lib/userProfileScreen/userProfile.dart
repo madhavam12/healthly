@@ -98,7 +98,6 @@ class _UserProfileViewState extends State<UserProfileView> {
       );
     }
     return Text("");
-    ;
   }
 
   @override
