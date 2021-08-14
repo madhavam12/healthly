@@ -20,7 +20,7 @@ import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:healthly/recipePages/search_screen.dart';
 import 'package:healthly/profileCreation/docProfileCreation.dart';
-import 'package:healthly/covidDsNew/providers/home_provider.dart';
+import 'package:healthly/CovidStatsPages/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:healthly/bmiCalculationScreens/input_page/input_page.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
@@ -80,7 +80,7 @@ class _UserProfileViewState extends State<UserProfileView> {
     return formatted3;
   }
 
-  @override //TODO create this
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: doc == null
@@ -154,18 +154,21 @@ class _UserProfileViewState extends State<UserProfileView> {
                                     ),
                                   ),
                                   SizedBox(height: 5),
-                                  Text(
-                                    '~ ${doc.data()['speciality']}',
-                                    maxLines: 5,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      letterSpacing: 1.5,
-                                      color: Colors.black.withOpacity(0.7),
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "QuickSand",
-                                      fontSize: 14.0,
-                                    ),
-                                  ),
+                                  "${doc.data()['isDoc']}" == true
+                                      ? Text(
+                                          '~ ${doc.data()['speciality']}',
+                                          maxLines: 5,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            letterSpacing: 1.5,
+                                            color:
+                                                Colors.black.withOpacity(0.7),
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "QuickSand",
+                                            fontSize: 14.0,
+                                          ),
+                                        )
+                                      : Container(),
                                 ],
                               ),
                             ),
@@ -186,25 +189,26 @@ class _UserProfileViewState extends State<UserProfileView> {
                         ),
                       ),
                       SizedBox(height: 10),
+                      "${doc.data()['isDoc']}" == true
+                          ? OptionRow(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProfileCreationView(),
+                                  ),
+                                );
+                                // NavigationService _navigationService =
+                                //     locator<NavigationService>();
+                                // _navigationService.navigateTo(Routes.editProfileView);
+                              },
+                              iconColor2: Color(0xFFFEF0E4),
+                              text: "Edit Profile",
+                              iconData: LineAwesomeIcons.pencil_ruler,
+                              iconColor: Color(0xFFFE6D1E),
+                            )
+                          : Container(),
                       OptionRow(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProfileCreationView(),
-                            ),
-                          );
-                          // NavigationService _navigationService =
-                          //     locator<NavigationService>();
-                          // _navigationService.navigateTo(Routes.editProfileView);
-                        },
-                        iconColor2: Color(0xFFFEF0E4),
-                        text: "Edit Profile",
-                        iconData: LineAwesomeIcons.pencil_ruler,
-                        iconColor: Color(0xFFFE6D1E),
-                      ),
-                      OptionRow(
-                        // TODO for profile edit https://dribbble.com/shots/15054650-BoltCard-Settings-Profile
                         onTap: () {
                           Navigator.push(
                             context,

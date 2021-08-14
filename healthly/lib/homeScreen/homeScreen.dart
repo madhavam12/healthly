@@ -6,6 +6,7 @@ import 'allWidgets.dart';
 import 'package:healthly/covidDS/screens/home_screen.dart';
 import 'package:healthly/services/FirebaseAuthService.dart';
 import 'AllDoctorsPage.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'tnCPage.dart';
 import 'privacyPolicyPage.dart';
@@ -22,7 +23,7 @@ import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:healthly/recipePages/search_screen.dart';
 import 'package:healthly/profileCreation/docProfileCreation.dart';
-import 'package:healthly/covidDsNew/providers/home_provider.dart';
+import 'package:healthly/CovidStatsPages/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:healthly/bmiCalculationScreens/input_page/input_page.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
@@ -262,6 +263,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final now = new DateTime.now();
+    String formatter = DateFormat.yMMMMd('en_US').format(now);
+
     Size size = MediaQuery.of(context).size;
     return SideMenu(
       closeIcon: Icon(LineAwesomeIcons.times, color: Colors.black, size: 35),
@@ -297,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// Search
               DotNavigationBarItem(
-                icon: Icon((LineAwesomeIcons.facebook_messenger)),
+                icon: Icon((LineAwesomeIcons.list)),
                 selectedColor: Colors.orange,
               ),
 
@@ -347,6 +351,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   child: Icon(LineAwesomeIcons.bars,
                                       color: Colors.black, size: 40),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(right: 15.0, top: 25),
+                              child: Text(
+                                "${DateFormat('EEEE').format(DateTime.now())}, $formatter",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "QuickSand",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
                                 ),
                               ),
                             ),

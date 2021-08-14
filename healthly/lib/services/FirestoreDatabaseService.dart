@@ -21,6 +21,7 @@ class FirestoreDatabaseService {
       "name": name,
       "idUser": user.uid,
       "cityName": cityName,
+      "dateAndTime": Timestamp.now(),
       "isDoc": isDoc,
       "phoneNumber": phoneNumber,
       "urlAvatar": photoURL,
@@ -63,6 +64,7 @@ class FirestoreDatabaseService {
         doc.data()['urlAvatar'] != null &&
         doc.data()['name'] != null &&
         doc.data()['isDoc'] != null &&
+        doc.data()['aboutMe'] != null &&
         doc.data()['idUser'] != null &&
         doc.data()['email'] != null &&
         doc.data()['speciality'] != null) {

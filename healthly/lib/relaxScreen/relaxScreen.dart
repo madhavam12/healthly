@@ -58,22 +58,25 @@ class HomeRoute extends StatelessWidget {
             top: 115,
             width: width,
             child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'RELAX',
-                    style: title.copyWith(fontFamily: "QuickSand"),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Tap any icon below',
-                    style: TextStyle(
-                        fontFamily: "QuickSand",
-                        fontSize: 18,
-                        color: Colors.white.withOpacity(0.7)),
-                  ),
-                ],
+              child: Container(
+                margin: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Stressed?',
+                      style: title.copyWith(fontFamily: "QuickSand"),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Tap any icon below.',
+                      style: TextStyle(
+                          fontFamily: "QuickSand",
+                          fontSize: 20,
+                          color: Colors.white.withOpacity(0.7)),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -6,19 +6,19 @@ import 'package:healthly/covidDS/widgets/widgets.dart';
 import 'screens.dart';
 import 'package:healthly/services/covid19API.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:healthly/covidDsNew/providers/home_provider.dart';
+import 'package:healthly/CovidStatsPages/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/provider.dart' as pro;
 import 'package:riverpod/riverpod.dart';
-import 'package:healthly/covidDsNew/screens/root_page.dart';
-import 'package:healthly/covidDsNew/screens/root_page.dart';
-import 'package:healthly/covidDsNew/screens/details_screen.dart';
-import 'package:healthly/covidDsNew/screens/view_all_screen.dart';
-import 'package:healthly/covidDsNew/screens/link_details_screen.dart';
+import 'package:healthly/CovidStatsPages/screens/root_page.dart';
+import 'package:healthly/CovidStatsPages/screens/root_page.dart';
+import 'package:healthly/CovidStatsPages/screens/details_screen.dart';
+import 'package:healthly/CovidStatsPages/screens/view_all_screen.dart';
+import 'package:healthly/CovidStatsPages/screens/link_details_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:healthly/providers/providers.dart' as providers;
-import 'package:healthly/covidDsNew/section/top_country_list.dart';
-import 'package:healthly/covidDsNew/screens/root_page.dart';
+import 'package:healthly/CovidStatsPages/section/top_country_list.dart';
+import 'package:healthly/CovidStatsPages/screens/root_page.dart';
 
 class CovidHomeScreen extends StatefulWidget {
   @override

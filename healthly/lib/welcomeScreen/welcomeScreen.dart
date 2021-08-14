@@ -32,7 +32,7 @@ class _WelcomePageState extends State<WelcomePage> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color(0xfffFFF7EA), Color(0xffFFF7EA)],
+              colors: [Colors.orange.withOpacity(0.5), Colors.orange],
             ),
           ),
           child: Column(
@@ -43,8 +43,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 height: 250,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/images/welcome.png"),
-                      fit: BoxFit.cover),
+                      image: AssetImage("assets/images/meditate.png"),
+                      fit: BoxFit.contain),
                 ),
               ),
               title(context),

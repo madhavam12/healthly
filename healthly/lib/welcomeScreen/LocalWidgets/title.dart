@@ -11,7 +11,7 @@ Widget title(BuildContext context) {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             letterSpacing: 1.5,
-            color: Colors.black,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontFamily: "QuickSand",
             fontSize: 40.0,
@@ -24,7 +24,7 @@ Widget title(BuildContext context) {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             letterSpacing: 1.5,
-            color: Colors.black.withOpacity(0.97),
+            color: Colors.white.withOpacity(0.8),
             fontWeight: FontWeight.bold,
             fontFamily: "QuickSand",
             fontSize: 20.0,

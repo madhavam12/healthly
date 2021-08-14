@@ -63,7 +63,18 @@ class FirebaseAuthService {
 
     List city = await determinePosition();
 
-    if (city[0] = false) {
+    if (city[0] == false) {
+      await _auth.signOut();
+      final GoogleSignIn googleUser = GoogleSignIn();
+      if (googleUser.currentUser != null) {
+        googleUser.signOut();
+      }
+
+      var box = Hive.box('doctorCreationBox');
+      var box2 = Hive.box('isDoctor');
+
+      box.clear();
+      box2.clear();
       return city[1];
     }
 
@@ -192,7 +203,6 @@ class FirebaseAuthService {
     return _auth.authStateChanges();
   }
 
-//TODO show creation profile page if user data is not present
   bool isEmailVerified(User user) {
     return user.emailVerified;
   }

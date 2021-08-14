@@ -22,13 +22,13 @@ Widget signUpButton(BuildContext context) {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(5)),
-        border: Border.all(color: Colors.blue, width: 2),
+        border: Border.all(color: Colors.white, width: 2),
       ),
       child: Text(
         'Continue as a doctor',
         style: TextStyle(
           fontSize: 22,
-          color: Colors.black,
+          color: Colors.white,
           fontFamily: "QuickSand",
           fontWeight: FontWeight.bold,
         ),

@@ -163,7 +163,20 @@ class _MealsScreenState extends State<MealsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Your Meal Plan')),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back, color: Colors.black),
+        ),
+        title: Text(
+          'Today\'s Meal Plan',
+          style: TextStyle(color: Colors.black, fontFamily: "QuickSand"),
+        ),
+      ),
       body: ListView.builder(
           itemCount: 1 + widget.mealPlan.meals.length,
           itemBuilder: (BuildContext context, int index) {

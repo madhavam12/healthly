@@ -59,9 +59,11 @@ dependencies:
   bottom_navy_bar: ^6.0.0
 
   fluttertoast: 8.0.6
+  
   image_picker: 0.7.4
   shared_preferences: 2.0.5
   audioplayers: ^0.19.1
+  simple_connection_checker: ^0.2.1
 
   
   
@@ -73,13 +75,26 @@ dependencies:
 
 
 dev_dependencies:
+  flutter_native_splash: ^1.2.1
+  flutter_launcher_icons: ^0.9.1
   flutter_test:
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/icons/logo.png"
+  adaptive_icon_background:  "#ffffff"
+
 # The following section is specific to Flutter.
+flutter_native_splash:
+  image: assets/icons/splash.png
+
+  color: "#ffffff"
+  
 flutter:
 
 
@@ -105,8 +120,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/flags/
-    - assets/symptoms/
-    - assets/prevention/
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

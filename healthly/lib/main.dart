@@ -9,8 +9,33 @@ import 'package:hive/hive.dart';
 import 'profileCreation/docProfileCreation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/services.dart';
+import 'package:connection_verify/connection_verify.dart';
+import 'package:simple_connection_checker/simple_connection_checker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() async {
+  StreamSubscription subscription;
+  bool _connected;
+
+  SimpleConnectionChecker _simpleConnectionChecker = SimpleConnectionChecker()
+    ..setLookUpAddress(
+        'google.com'); //Optional method to pass the lookup string
+  subscription =
+      _simpleConnectionChecker.onConnectionChange.listen((connected) {
+    // setState(() {
+    //   _connected = connected;
+    // });
+
+    if (!connected) {
+      Fluttertoast.showToast(
+          msg: "No internet connection, please connect to the internet",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  });
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Hive.initFlutter();

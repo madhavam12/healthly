@@ -6,8 +6,7 @@ class FirebaseStorageService {
   FirebaseStorage storage = FirebaseStorage.instance;
   Future uploadImageAndGetDownloadUrl(
       {@required File image, @required String uid}) async {
-    var imageFileName = //TODO chng it to uid so tht it's deleted automatically whn new pic is uploaded
-        uid; //uniqueID
+    var imageFileName = uid; //uniqueID
 
     Reference ref = storage.ref().child(imageFileName);
 

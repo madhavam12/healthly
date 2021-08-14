@@ -7,7 +7,7 @@ class TNCPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("TNC Page(dummy)"),
+        child: Text("Terms and conditions page(dummy)"),
       ),
     );
   }

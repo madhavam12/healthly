@@ -27,12 +27,12 @@ Widget submitButton({BuildContext context}) {
                 blurRadius: 8,
                 spreadRadius: 2)
           ],
-          color: Colors.blue),
+          color: Colors.white),
       child: Text(
         'Continue as a patient',
         style: TextStyle(
           fontSize: 22,
-          color: Colors.white,
+          color: Colors.black,
           fontFamily: "QuickSand",
           fontWeight: FontWeight.bold,
         ),
