@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:async';
+import 'allWidgets.dart';
 import 'package:healthly/covidDS/screens/home_screen.dart';
 import 'package:healthly/services/FirebaseAuthService.dart';
 import 'AllDoctorsPage.dart';
-
+import 'package:url_launcher/url_launcher.dart';
+import 'tnCPage.dart';
+import 'privacyPolicyPage.dart';
 import 'package:healthly/userProfileScreen/userProfile.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,6 +31,7 @@ import 'package:healthly/Models/userIdModel.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 // QrService _qrService = locator<QrService>();
 import 'package:shared_preferences/shared_preferences.dart';
+import 'creditsPage.dart';
 
 final GlobalKey<SideMenuState> _endSideMenuKey = GlobalKey<SideMenuState>();
 
@@ -88,9 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
           LListItem(
             backgroundColor: Colors.transparent,
             onTap: () {
-              // NavigationService _navigationService =
-              //     locator<NavigationService>();
-              // _navigationService.navigateTo(Routes.termsAndConditionView);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => TNCPage()));
             },
             leading: Icon(LineAwesomeIcons.paperclip,
                 size: 22.50, color: Colors.black),
@@ -108,10 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
           LListItem(
             backgroundColor: Colors.transparent,
             onTap: () {
-              // NavigationService _navigationService =
-              //     locator<NavigationService>();
-              // _navigationService.navigateTo(
-              //     Routes.privacyPolicyView); //TODO chng date on publishing
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PrivacyPolicyPage()));
             },
             leading:
                 Icon(LineAwesomeIcons.file, size: 22.50, color: Colors.black),
@@ -129,9 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
           LListItem(
             backgroundColor: Colors.transparent,
             onTap: () {
-              // NavigationService _navigationService =
-              //     locator<NavigationService>();
-              // _navigationService.navigateTo(Routes.creditsView);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CreditsPage()));
             },
             leading: Icon(LineAwesomeIcons.feather,
                 size: 22.50, color: Colors.black),
@@ -147,12 +147,33 @@ class _HomeScreenState extends State<HomeScreen> {
           LListItem(
             backgroundColor: Colors.transparent,
             onTap: () {
-              // final Uri _emailLaunchUri = Uri(
-              //     scheme: 'mailto',
-              //     path: 'upsynced@gmail.com',
-              //     queryParameters: {'subject': 'Suggestions / Bug Report'});
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AllWidgets(),
+                ),
+              );
+            },
+            leading: Icon(LineAwesomeIcons.connect_develop,
+                size: 22.50, color: Colors.black),
+            title: Text("All Widgets",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontFamily: "Quicksand",
+                )),
+            textColor: Colors.white,
+            dense: true,
+          ),
+          LListItem(
+            backgroundColor: Colors.transparent,
+            onTap: () {
+              final Uri _emailLaunchUri = Uri(
+                  scheme: 'mailto',
+                  path: 'madhavam.shahi.12@gmail.com',
+                  queryParameters: {'subject': 'Suggestions / Bug Report'});
 
-              // launch(_emailLaunchUri.toString());
+              launch(_emailLaunchUri.toString());
             },
             leading:
                 Icon(LineAwesomeIcons.phone, size: 22.50, color: Colors.black),
@@ -170,12 +191,12 @@ class _HomeScreenState extends State<HomeScreen> {
           LListItem(
             backgroundColor: Colors.transparent,
             onTap: () {
-              // final Uri _emailLaunchUri = Uri(
-              //     scheme: 'mailto',
-              //     path: 'upsynced@gmail.com',
-              //     queryParameters: {'subject': 'Suggestions / Bug Report'});
+              final Uri _emailLaunchUri = Uri(
+                  scheme: 'mailto',
+                  path: 'madhavam.shahi.12@gmail.com',
+                  queryParameters: {'subject': 'Suggestions / Bug Report'});
 
-              // launch(_emailLaunchUri.toString());
+              launch(_emailLaunchUri.toString());
             },
             leading:
                 Icon(LineAwesomeIcons.bug, size: 22.50, color: Colors.black),
@@ -249,12 +270,6 @@ class _HomeScreenState extends State<HomeScreen> {
       type: SideMenuType.slide,
       menu: buildMenu(context),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ProfileCreationView()));
-          },
-        ),
         bottomNavigationBar: Container(
           color: Color(0xFFFFFFFF),
           child: DotNavigationBar(
@@ -294,14 +309,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        // floatingActionButton: FloatingActionButton(onPressed: () {
-        //   NavigationService _navigationService =
-        //       locator<NavigationService>();
-        //   _navigationService.navigateTo(Routes.onboardingView);
-        // }),
-        //TODO on scanning, save a's id into an array in b's doc. and save b's id into an array in a's doc[main profile doc]. and run array contains any query.
-
-        // backgroundColor: Colors.blue,
         body: PageView(
           controller: pageController,
           physics: NeverScrollableScrollPhysics(),
@@ -341,16 +348,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Icon(LineAwesomeIcons.bars,
                                       color: Colors.black, size: 40),
                                 ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                // pageController.jumpToPage(3);
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(right: 15.0, top: 25),
-                                child: Icon(LineAwesomeIcons.user_astronaut,
-                                    size: 40, color: Colors.black),
                               ),
                             ),
                           ],

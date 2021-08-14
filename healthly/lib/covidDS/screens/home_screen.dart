@@ -211,11 +211,6 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                CountryDropdown(
-                  countries: ['China', 'France', 'India', 'Italy', 'UK', 'USA'],
-                  country: _country,
-                  onChanged: (val) => setState(() {}),
-                ),
               ],
             ),
             SizedBox(height: screenHeight * 0.03),

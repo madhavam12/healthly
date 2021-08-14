@@ -1,18 +1,46 @@
 import 'package:flutter/material.dart';
 
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+import 'dart:async';
+import 'package:healthly/covidDS/screens/home_screen.dart';
+import 'package:healthly/services/FirebaseAuthService.dart';
+
+import 'package:healthly/userProfileScreen/userProfile.dart';
+import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:healthly/covidDS/config/styles.dart';
+
+import 'package:healthly/relaxScreen/relaxScreen.dart';
+
+import 'package:healthly/constant.dart';
+import 'package:healthly/loginScreen/loginPage.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:healthly/recipePages/search_screen.dart';
+import 'package:healthly/profileCreation/docProfileCreation.dart';
+import 'package:healthly/covidDsNew/providers/home_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:healthly/bmiCalculationScreens/input_page/input_page.dart';
+import 'package:shrink_sidemenu/shrink_sidemenu.dart';
+import 'package:liquid_ui/liquid_ui.dart';
+import 'package:healthly/Models/userIdModel.dart';
+import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+// QrService _qrService = locator<QrService>();
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
-
+import 'package:healthly/homeScreen/allWidgets.dart';
 import 'package:flutter/services.dart';
 
 import 'package:healthly/profileCreation/docProfileCreation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'dart:convert';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:healthly/Models/userIdModel.dart';
 
@@ -23,6 +51,7 @@ class UserProfileView extends StatefulWidget {
 
 class _UserProfileViewState extends State<UserProfileView> {
   DocumentSnapshot<Map> doc;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -124,6 +153,19 @@ class _UserProfileViewState extends State<UserProfileView> {
                                       fontSize: 18.0,
                                     ),
                                   ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    '~ ${doc.data()['speciality']}',
+                                    maxLines: 5,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      letterSpacing: 1.5,
+                                      color: Colors.black.withOpacity(0.7),
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "QuickSand",
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -164,10 +206,16 @@ class _UserProfileViewState extends State<UserProfileView> {
                       OptionRow(
                         // TODO for profile edit https://dribbble.com/shots/15054650-BoltCard-Settings-Profile
                         onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AllWidgets(),
+                            ),
+                          );
                           // pageController.jumpToPage(1);
                         },
                         iconColor2: Color(0xFFECEAFE),
-                        text: "Past Connections",
+                        text: "View All Widgets",
                         iconData: LineAwesomeIcons.connect_develop,
                         iconColor: Color(0xFF5722FB),
                       ),
@@ -175,12 +223,12 @@ class _UserProfileViewState extends State<UserProfileView> {
                         onTap: () {
                           final Uri _emailLaunchUri = Uri(
                               scheme: 'mailto',
-                              path: 'upsynced@gmail.com',
+                              path: 'madhavam.shahi.12@gmail.com',
                               queryParameters: {
                                 'subject': 'Suggestions / Bug Report'
                               });
 
-                          // launch(_emailLaunchUri.toString());
+                          launch(_emailLaunchUri.toString());
                         },
                         iconColor2: Color(0xFFE4F7FF),
                         text: "Contact Us",
@@ -189,13 +237,14 @@ class _UserProfileViewState extends State<UserProfileView> {
                       ),
                       OptionRow(
                         onTap: () async {
-                          // FirebaseAuthService _authService =
-                          //     locator<FirebaseAuthService>();
-                          // await _authService.signOut();
-                          // NavigationService _navigationService =
-                          //     locator<NavigationService>();
-
-                          // _navigationService.replaceWith(Routes.loginView);
+                          FirebaseAuthService _authService =
+                              FirebaseAuthService();
+                          await _authService.signOut();
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginView()));
                         },
                         iconColor2: Color(0xFFF989A4),
                         text: "Sign out",
