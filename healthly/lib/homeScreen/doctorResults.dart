@@ -115,6 +115,7 @@ class _DoctorResultsState extends State<DoctorResults> {
                                   snapshot.data.docs[index].data()['urlAvatar'];
 
                               colors.shuffle();
+
                               return GestureDetector(
                                 onTap: () {
                                   print("object");
@@ -217,6 +218,7 @@ class DoctorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("isyou $isYou");
     return DecoratedBox(
       decoration: BoxDecoration(
         color: _bgColor.withOpacity(0.1),
@@ -239,7 +241,10 @@ class DoctorCard extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 )
-              : Container(),
+              : Text(
+                  '',
+                  style: TextStyle(color: Colors.white),
+                ),
           leading: Image.network(_imageUrl),
           title: Text(
             _name,

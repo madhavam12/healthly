@@ -24,7 +24,7 @@ import 'package:healthly/loginScreen/loginPage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:healthly/recipePages/search_screen.dart';
 import 'package:healthly/profileCreation/docProfileCreation.dart';
-import 'package:healthly/CovidStatsPages/providers/home_provider.dart';
+
 import 'package:provider/provider.dart';
 import 'package:healthly/bmiCalculationScreens/input_page/input_page.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
@@ -296,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// Likes
               DotNavigationBarItem(
-                icon: Icon(LineAwesomeIcons.stethoscope),
+                icon: Icon(LineAwesomeIcons.newspaper),
                 selectedColor: Colors.orange,
               ),
 

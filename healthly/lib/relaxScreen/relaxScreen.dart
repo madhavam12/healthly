@@ -11,8 +11,7 @@ const title = TextStyle(
 
 class HomeRoute extends StatelessWidget {
   row(s1, s2, context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
       children: [
         soundBtn(s1, context),
         soundBtn(s2, context),
@@ -21,18 +20,36 @@ class HomeRoute extends StatelessWidget {
   }
 
   soundBtn(sound, context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => PlayRoute(sound: sound)));
-      },
-      child: Column(
-        children: [
-          Image.asset('assets/icons/$sound.png'),
-          Text(sound.toUpperCase(),
-              style: TextStyle(
-                  color: Colors.white, fontSize: 16, letterSpacing: 3.0))
-        ],
+    return Container(
+      margin: EdgeInsets.all(5),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => PlayRoute(sound: sound)));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.orange,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 20.0,
+              ),
+            ],
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          child: Column(
+            children: [
+              Image.asset('assets/icons/$sound.png'),
+              Text(sound.toUpperCase(),
+                  style: TextStyle(
+                      color: Colors.white, fontSize: 16, letterSpacing: 3.0)),
+              SizedBox(height: 5),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -41,55 +58,62 @@ class HomeRoute extends StatelessWidget {
   build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(top: 0, left: 0, child: Image.asset(img + 'bkgnd_2.jpg')),
-          AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            leading: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(Icons.arrow_back),
-            ),
-          ),
-          Positioned(
-            top: 115,
-            width: width,
-            child: Center(
-              child: Container(
-                margin: EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Stressed?',
-                      style: title.copyWith(fontFamily: "QuickSand"),
+      backgroundColor: Colors.blue,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Center(
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Stressed?',
+                    style: title.copyWith(fontFamily: "QuickSand"),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Tap any icon below.',
+                    style: TextStyle(
+                        fontFamily: "QuickSand",
+                        fontSize: 20,
+                        color: Colors.white.withOpacity(0.7)),
+                  ),
+                  SizedBox(height: 25),
+                  Container(
+                    height: 250,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                            img + 'bkgnd_2.png',
+                          ),
+                          fit: BoxFit.contain),
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      'Tap any icon below.',
-                      style: TextStyle(
-                          fontFamily: "QuickSand",
-                          fontSize: 20,
-                          color: Colors.white.withOpacity(0.7)),
-                    ),
-                  ],
-                ),
+                  ),
+                  // SizedBox(height: MediaQuery.of(context).size.height / 8),
+                  Wrap(
+                    children: [
+                      soundBtn("rain", context),
+                      soundBtn("sunset", context),
+                      soundBtn("forest", context),
+                      soundBtn("ocean", context),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 8),
+                ],
               ),
             ),
           ),
-          Positioned(
-              top: 250,
-              width: width,
-              child: Column(
-                children: [
-                  row('rain', 'forest', context),
-                  row('sunset', 'ocean', context)
-                ],
-              )),
-        ],
+        ),
       ),
     );
   }
