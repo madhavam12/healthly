@@ -66,7 +66,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: AutoSizeText(
-          "Covid-19 Updates",
+          widget.isHealth ? "Articles on fitness" : "Covid-19 Updates",
           style: TextStyle(
             color: Colors.black,
             fontFamily: "Montserrat",

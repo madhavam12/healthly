@@ -201,6 +201,7 @@ class _AllDoctorsIndiaState extends State<AllDoctorsIndia> {
 class DoctorCard extends StatelessWidget {
   String _name;
   String _description;
+
   String _imageUrl;
   Color _bgColor;
 

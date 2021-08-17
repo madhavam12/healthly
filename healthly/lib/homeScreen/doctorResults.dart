@@ -157,6 +157,8 @@ class _DoctorResultsState extends State<DoctorResults> {
                                       top: 10, bottom: 10, right: 35, left: 10),
                                   child: DoctorCard(
                                     name,
+                                    FirebaseAuth.instance.currentUser.uid ==
+                                        snapshot.data.docs[index].id,
                                     speciality,
                                     pic,
                                     colors[0],
@@ -206,10 +208,12 @@ class _DoctorResultsState extends State<DoctorResults> {
 class DoctorCard extends StatelessWidget {
   String _name;
   String _description;
+  bool isYou;
   String _imageUrl;
   Color _bgColor;
 
-  DoctorCard(this._name, this._description, this._imageUrl, this._bgColor);
+  DoctorCard(
+      this._name, this.isYou, this._description, this._imageUrl, this._bgColor);
 
   @override
   Widget build(BuildContext context) {
@@ -221,6 +225,21 @@ class DoctorCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(10),
         child: ListTile(
+          trailing: isYou
+              ? Container(
+                  padding: EdgeInsets.all(7),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    'You',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              : Container(),
           leading: Image.network(_imageUrl),
           title: Text(
             _name,

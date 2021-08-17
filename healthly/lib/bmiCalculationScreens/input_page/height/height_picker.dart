@@ -59,7 +59,6 @@ class _HeightPickerState extends State<HeightPicker> {
       onVerticalDragUpdate: _onDragUpdate,
       child: Stack(
         children: <Widget>[
-          _drawPersonImage(),
           _drawSlider(),
           _drawLabels(),
         ],
@@ -137,18 +136,6 @@ class _HeightPickerState extends State<HeightPicker> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _drawPersonImage() {
-    double personImageHeight = _sliderPosition + marginBottomAdapted(context);
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: SvgPicture.asset(
-        "assets/images/person.svg",
-        height: personImageHeight,
-        width: personImageHeight / 3,
       ),
     );
   }
