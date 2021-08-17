@@ -3,7 +3,7 @@ import 'package:healthly/bmiCalculationScreens/fade_route.dart';
 import 'package:healthly/bmiCalculationScreens/input_page/gender/gender_card.dart';
 import 'package:healthly/bmiCalculationScreens/input_page/height/height_card.dart';
 import 'package:healthly/bmiCalculationScreens/input_page/input_page_styles.dart';
-import 'package:healthly/bmiCalculationScreens/input_page/pacman_slider.dart';
+
 import 'package:healthly/bmiCalculationScreens/input_page/transition_dot.dart';
 import 'package:healthly/bmiCalculationScreens/input_page/weight/weight_card.dart';
 import 'package:healthly/bmiCalculationScreens/model/gender.dart';
