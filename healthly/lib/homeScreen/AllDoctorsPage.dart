@@ -38,7 +38,7 @@ class _AllDoctorsState extends State<AllDoctors> {
               child: Container(
                 margin: EdgeInsets.all(25),
                 child: Text(
-                  "All doctors in $cityName",
+                  "Latest articles",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "QuickSand",

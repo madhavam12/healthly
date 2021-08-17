@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'tnCPage.dart';
 import 'privacyPolicyPage.dart';
+import 'package:healthly/covidNew/screens/updates_page.dart';
 import 'package:healthly/userProfileScreen/userProfile.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -709,32 +710,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 snapshot.data.docs.length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
-                                              // if (snapshot
-                                              //         .data.docs[index].id ==
-                                              //     FirebaseAuth.instance
-                                              //         .currentUser.uid) {
-                                              //   if (snapshot.data.docs.length ==
-                                              //       1) {
-                                              //     return Center(
-                                              //       child: Container(
-                                              //         margin:
-                                              //             EdgeInsets.all(10),
-                                              //         child: Text(
-                                              //           "Sorry, no doctors available in your city.",
-                                              //           style: TextStyle(
-                                              //               color:
-                                              //                   Colors.orange,
-                                              //               fontSize: 15,
-                                              //               fontWeight:
-                                              //                   FontWeight.bold,
-                                              //               fontFamily:
-                                              //                   "QuickSand"),
-                                              //         ),
-                                              //       ),
-                                              //     );
-                                              //   }
-                                              //   return Container();
-                                              // }
                                               return GestureDetector(
                                                 onTap: () {
                                                   Navigator.push(
@@ -1094,7 +1069,9 @@ class _HomeScreenState extends State<HomeScreen> {
             // prefs != null
             //     ? ChatScreen(currentUserId: prefs.getString('id') ?? "")
             //     : Container(),
-            AllDoctors(),
+            // AllDoctors(),
+
+            UpdatesScreen(isHealth: true),
             AllDoctorsIndia(),
             UserProfileView(),
           ],
@@ -1113,8 +1090,6 @@ class PersonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 130,
-      height: 180,
       child: Stack(
         children: <Widget>[
           Card(
@@ -1122,8 +1097,8 @@ class PersonCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Container(
-              width: 110,
-              height: 157,
+              width: 150,
+              height: 177,
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 16,
