@@ -944,20 +944,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 180,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.7),
-                                  blurRadius: 25.0,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.7),
+                                    blurRadius: 25.0,
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
                                 ),
-                              ],
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              ),
-                              // image: DecorationImage(
-                              //   image: AssetImage('assets/images/covid.png'),
-                              // ),
-                              color: Colors.amber.withOpacity(0.99),
-                            ),
+                                // image: DecorationImage(
+                                //   image: AssetImage('assets/images/covid.png'),
+                                // ),
+                                color: Colors.deepOrange[400]),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(

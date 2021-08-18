@@ -78,14 +78,16 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
           minFontSize: 14,
           maxLines: 1,
         ),
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 26,
-          ),
-        ),
+        leading: !widget.isHealth
+            ? IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                  size: 26,
+                ),
+              )
+            : Text(""),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
